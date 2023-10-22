@@ -6,17 +6,77 @@
 
 <div class="container seccion1">
   <div class="row align-items-center">
+
     <div class="col-lg-6 col-md-12 text-center">
       <div class="img">
         <h1 class="titulo_index">ETAC Base Calamuchita</h1>
         <h3 class="subtitulo_index">Registro de datos internos</h3>
       </div>
     </div>
-    <div class="col-lg-6 col-md-12 text-center">
 
-    </div>
+
+  <!-- <div class="col-lg-6 col-md-12 text-center">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1DFy4xJnnS0?si=vcjUr6BzYSYN3CEB" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div> -->
+
   </div>
 </div>
+
+
+
+<section class="registro_moviles">
+
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alert alert-primary">
+    <ul class="list-unstyled">
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {% endwith %}
+
+<div class="row">
+  <div class="col-lg-6 col-md-12 text-center">
+    <h3 class="text-center">Registro de Moviles</h3>
+        <form class="form_ins" action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
+          <label style="color:white">Registro Moviles</label>
+
+          <label style="color:white">Fecha</label>
+          <input type="date" class="form-control" name="fecha" placeholder="Fecha" required="required" /> <br>
+
+          <input type="number" class="form-control" name="movil" placeholder="Numero de Movil" required="required" />
+
+          <input type="text" class="form-control" name="destino_actividad" placeholder="Destino / Actividad" />
+
+          <label style="color:white">Hora de Salida</label>
+          <input type="time" class="form-control" name="hora_salida" placeholder="Hora de salida" required="required" />
+          <input type="number" class="form-control" name="km_salida" placeholder="KM de salida" required="required" />
+
+
+
+
+          <label style="color:white">Hora de Llegada</label>
+          <input type="time" class="form-control" name="hora_llegada" placeholder="Hora de llegada" required="required" />
+          <input type="number" class="form-control" name="km_llegada" placeholder="KM de llegada" required="required" />
+
+          <input type="text" class="form-control" name="a_cargo" placeholder="Agte. a cargo" />
+          <input type="text" class="form-control" name="chofer" placeholder="Chofer" />
+
+
+
+          <button type="submit" name="registro_movil" class="btn btn-primary btn-lg">Registro de Moviles</button>
+        </form>
+
+
+
+  </div>
+
+
+</div>
+
+  </section>
 
 
 

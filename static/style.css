@@ -162,5 +162,13 @@ body#moviles-body {
 
 
 
+    /* Cambia el color del texto a blanco cuando se colapsa la pantalla */
+    .navbar-toggler{
+    background-color:yellow;;
+    }
 
 
+
+.registro_moviles{
+padding-top:200px;
+}

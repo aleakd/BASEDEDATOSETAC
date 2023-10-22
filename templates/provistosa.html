@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<h1>Provistos guardia "A"</h1>
+{% if lista_agentes %}
+    <table class="tabla_agentes" id="tablacarnet2" >
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Apellido</th>
+            <th>Nombre</th>
+            <th>Remera Gris</th>
+            <th>Borcegos</th>
+            <th>Pantalon Gris</th>
+            <th>Chaqueta Forestal</th>
+            <th>Pantalon Forestal</th>
+            <th>Guantes</th>
+            <th>Buzo</th>
+            <th>Campera</th>
+        </tr>
+        </thead>
+
+      <tbody>
+        {% for agente in lista_agentes %}
+        {% for provist in provistos %}
+        {% if provist.id_agente == agente.id_agente %}
+
+
+        <tr>
+            <td>{{ agente.id_agente }}</td>
+            <td>{{ agente.apellido }}</td>
+            <td>{{ agente.nombre }}</td>
+            <td>{{ provist.Remer_gris }}</td>
+            <td>{{ provist.Borcegos }}</td>
+            <td>{{ provist.Pantalon_gris }}</td>
+            <td>{{ provist.Chaqueta_forestal }}</td>
+            <td>{{ provist.Pantalon_forestal }}</td>
+            <td>{{ provist.Guantes }}</td>
+            <td>{{ provist.Buzo }}</td>
+            <td>{{ provist.Campera }}</td>
+
+        </tr>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+<p>No hay Talles registrados.</p>
+{% endif %}
+
+
+<script>
+$(document).ready( function () {
+    $('#tablacarnet2').DataTable();
+} );
+</script>
+
+
+{% endblock %}

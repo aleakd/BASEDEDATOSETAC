@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if moviles %}
+<table class="tabla_agentes" id="tablacarnet2" >
+        <thead>
+        <tr>
+            <th>fecha</th>
+            <th>Numero de movil</th>
+            <th>Destino / Actividad</th>
+            <th>Hora de salida</th>
+            <th>Km de Salida</th>
+            <th>Hora de llegada</th>
+            <th>Km de llegada</th>
+            <th>A Cargo</th>
+            <th>Chofer</th>
+        </tr>
+        </thead>
+    <tbody>
+    {% for eco in moviles %}
+    <tr>
+            <td>{{ eco.fecha }}</td>
+            <td>{{ eco.numero_movil }}</td>
+            <td>{{ eco.destino }}</td>
+            <td>{{ eco.hora_salida }}</td>
+            <td>{{ eco.km_salida }}</td>
+            <td>{{ eco.hora_llegada }}</td>
+            <td>{{ eco.km_llegada }}</td>
+            <td>{{ eco.a_cargo }}</td>
+            <td>{{ eco.chofer }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% else %}
+<p>No hay movimientos registrados.</p>
+{% endif %}
+
+<script>
+$(document).ready( function () {
+    $('#tablacarnet2').DataTable();
+} );
+</script>
+
+
+{% endblock %}

@@ -37,6 +37,22 @@
 <p>No hay agentes registrados.</p>
 {% endif %}
 
+<div>
+
+    <ul>
+    {% for licencia in Licencias %}
+        <li>
+            <strong>Id Agente: {{ licencia.id_agente }}</strong>
+            Tipo: {{ licencia.Tipo }}
+            Fecha de Otorgamiento: {{ licencia.fecha_otorg }}
+            Fecha de Vencimiento: {{ licencia.fecha_vencim }}
+            <a href="{{ url_for('editar_licencia', id_agente=licencia.id_agente) }}">Editar</a>
+        </li>
+    {% endfor %}
+</ul>
+</div>
+
+
 <script>
 $(document).ready( function () {
     $('#tablacarnet2').DataTable();

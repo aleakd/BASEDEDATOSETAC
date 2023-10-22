@@ -5,7 +5,7 @@
 <h1>Listado de Agentes</h1>
 
 {% if lista_agentes %}
-    <table class="tabla_agentes" id="agentesTable">
+    <table class="tabla_agentes table table-responsive" id="agentesTable">
         <thead>
             <tr>
                 <th>ID</th>
@@ -21,6 +21,7 @@
                 <th>Domicilio</th>
                 <th>Email</th>
                 <th>Rol</th>
+                <th>Grupo sanguineo</th>
                 <th>Alergia</th>
                 <th>Camada</th>
                 <th>Bombero?</th>
@@ -42,6 +43,7 @@
                     <td>{{ agente.domicilio }}</td>
                     <td>{{ agente.email }}</td>
                     <td>{{ agente.Rol }}</td>
+                    <td>{{ agente.Grupo_sanguineo }}</td>
                     <td>{{ agente.Alergia }}</td>
                     <td>{{ agente.Camada }}</td>
                     <td>{{ agente.Bombero }}</td>

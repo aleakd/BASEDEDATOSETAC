@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Editar Licencia de Conducir</h1>
+<form method="POST">
+    <label for="fecha_otorgamiento">Fecha de Otorgamiento:</label>
+    <input type="date" id="fecha_otorgamiento" name="fecha_otorgamiento" value="{{ licencia.fecha_otorg }}" required>
+    <br>
+    <label for="fecha_vencimiento">Fecha de Vencimiento:</label>
+    <input type="date" id="fecha_vencimiento" name="fecha_vencimiento" value="{{ licencia.fecha_vencim }}" required>
+    <br>
+    <button type="submit">Guardar Cambios</button>
+</form>
+{% endblock %}

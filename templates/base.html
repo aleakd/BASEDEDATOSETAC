@@ -41,10 +41,14 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
+            <li class="nav-item">
+            <a class="nav-link" href="movimientos">Movimientos</a>
+          </li>
           {% if not current_user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link" href="login">Acceso</a>
           </li>
+
           {% endif %}
           {% if current_user.is_authenticated %}
 
@@ -68,7 +72,7 @@
     </a>
     <div class="dropdown-menu" aria-labelledby="guardiaADropdown">
         <a class="dropdown-item" href="{{ url_for('licenciasA') }}">Licencias</a>
-        <a class="dropdown-item" href="#">Provisto</a>
+        <a class="dropdown-item" href="{{ url_for('tallesA') }}">Talles</a>
         <a class="dropdown-item" href="{{ url_for('guardiaA') }}">Datos Generales de Agentes</a>
     </div>
 </li>
@@ -78,7 +82,7 @@
     </a>
     <div class="dropdown-menu" aria-labelledby="guardiaBDropdown">
         <a class="dropdown-item" href="{{ url_for('licenciasB') }}">Licencias</a>
-        <a class="dropdown-item" href="#">Provisto</a>
+        <a class="dropdown-item" href="{{ url_for('tallesB') }}">Talles</a>
         <a class="dropdown-item" href="{{ url_for('guardiaB') }}">Datos Generales de Agentes</a>
     </div>
 </li>
@@ -88,7 +92,7 @@
     </a>
     <div class="dropdown-menu" aria-labelledby="guardiaCDropdown">
         <a class="dropdown-item" href="{{ url_for('licenciasC') }}">Licencias</a>
-        <a class="dropdown-item" href="#">Provisto</a>
+        <a class="dropdown-item" href="{{ url_for('tallesC') }}">Talles</a>
         <a class="dropdown-item" href="{{ url_for('guardiaC') }}">Datos Generales de Agentes</a>
     </div>
 </li>

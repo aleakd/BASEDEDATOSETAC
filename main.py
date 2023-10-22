@@ -15,6 +15,9 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 
+
+#TABLAS EN BASE DE DATOS:
+
 with app.app_context():
     class Agentes(db.Model):
         id_agente = db.Column(db.Integer, primary_key=True,unique=True)
@@ -29,6 +32,7 @@ with app.app_context():
         domicilio = db.Column(db.String(300))
         email = db.Column(db.String(100))
         Rol = db.Column(db.String(100))
+        Grupo_sanguineo= db.Column(db.String(100))
         Alergia = db.Column(db.String(100))
         Camada = db.Column(db.String(10))
         Bombero = db.Column(db.String(1000))
@@ -79,15 +83,74 @@ with app.app_context():
         Motivo = db.Column(db.String(1000))
 
 
+with app.app_context():
+    class Movimientos_moviles(db.Model):
+        __tablename__ = 'Movimientos_moviles'  # Agrega esta línea para especificar el nombre de la tabla en la base de datos
+        fecha = db.Column(db.Date)
+        numero_movil = db.Column(db.Integer, primary_key=True)
+        destino = db.Column(db.String(1000))
+        hora_salida = db.Column(db.Time)
+        km_salida = db.Column(db.Integer)
+        hora_llegada = db.Column(db.Time)
+        km_llegada = db.Column(db.Integer)
+        a_cargo = db.Column(db.String(50))
+        chofer = db.Column(db.String(50))
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
-    return render_template("index.html")
+    if request.method == 'POST':
+        fecha = datetime.strptime(request.form['fecha'], '%Y-%m-%d').date()  # Convierte la cadena de fecha a objeto de fecha
+        movil = request.form['movil']
+        destino = request.form['destino_actividad']
+        km_salida = request.form['km_salida']
+        km_llegada = request.form['km_llegada']
+        hora_llegada = datetime.strptime(request.form['hora_llegada'], '%H:%M').time()  # Convierte la cadena de hora a objeto de hora
+        hora_salida = datetime.strptime(request.form['hora_salida'], '%H:%M').time()
+
+        nuevo_registro = Movimientos_moviles(
+            fecha=fecha,
+            numero_movil=movil,
+            destino=destino,
+            km_salida=km_salida,
+            km_llegada=km_llegada,
+            hora_llegada=hora_llegada,
+            hora_salida=hora_salida,
+            a_cargo=request.form.get('a_cargo').upper(),
+            chofer= request.form.get('chofer').upper()
+        )
+
+
+        db.session.add(nuevo_registro)
+        db.session.commit()
+        flash('Se registro correctamente el movimiento del movil')
+
+    return render_template("index.html", moviles=movimientos)
+
+
+@app.route('/movimientos')
+def movimientos():
+    movimientos = Movimientos_moviles.query.order_by(Movimientos_moviles.numero_movil).all()
+
+    return render_template("movimientos.html", moviles=movimientos)
+
+
 
 @app.route('/logout')
 def logout():
@@ -138,7 +201,7 @@ def register():
         db.session.add(new_user)
         db.session.commit()
 
-        return redirect(url_for("secrets.html"))
+        return redirect(url_for("secrets"))
     return render_template("register.html")
 
 
@@ -169,6 +232,7 @@ def secrets():
                 domicilio=request.form.get("domicilio"),
                 email=request.form.get("email"),
                 Rol=request.form.get("rol"),
+                Grupo_sanguineo=request.form.get("grupo_sanguineo"),
                 Alergia=request.form.get("alergia"),
                 Camada=request.form.get("camada"),
                 Bombero=request.form.get("bombero"),
@@ -247,7 +311,7 @@ def secrets():
             db.session.commit()
             flash("Se registro el cambio de guardia ")
 
-    ultimos3_usuarios = User.query.order_by(User.id.desc()).limit(3).all()
+    ultimos3_usuarios = User.query.order_by(User.id.desc()).all()
     print(current_user.name)
     return render_template("secrets.html", name=current_user, last_three_users=ultimos3_usuarios)
 
@@ -271,6 +335,15 @@ def licenciasA():
 
 
 
+@app.route('/talles_A', methods=["GET", "POST"])
+@login_required
+def tallesA():
+    agentesA = Agentes.query.filter(Agentes.guardia == 'A').order_by(Agentes.id_agente).all()
+    provistosA= Talles.query.order_by(Talles.id_agente).all()
+    return render_template("provistosa.html", lista_agentes=agentesA, provistos=provistosA)
+
+
+
 
 
 
@@ -287,7 +360,12 @@ def licenciasB():
     licenciasB= CarnetConducir.query.order_by(CarnetConducir.id_agente).all()
     return render_template("licenciasb.html", lista_agentes=agentesB, Licencias=licenciasB)
 
-
+@app.route('/talles_B', methods=["GET", "POST"])
+@login_required
+def tallesB():
+    agentesB = Agentes.query.filter(Agentes.guardia == 'B').order_by(Agentes.id_agente).all()
+    provistosB= Talles.query.order_by(Talles.id_agente).all()
+    return render_template("provistosb.html", lista_agentes=agentesB, provistos=provistosB)
 
 
 
@@ -303,7 +381,42 @@ def guardiaC():
 def licenciasC():
     agentesC = Agentes.query.filter(Agentes.guardia == 'C').order_by(Agentes.id_agente).all()
     licenciasC= CarnetConducir.query.order_by(CarnetConducir.id_agente).all()
-    return render_template("licenciasC.html", lista_agentes=agentesC, Licencias=licenciasC)
+    return render_template("licenciasc.html", lista_agentes=agentesC, Licencias=licenciasC)
+
+@app.route('/talles_C', methods=["GET", "POST"])
+@login_required
+def tallesC():
+    agentesC = Agentes.query.filter(Agentes.guardia == 'C').order_by(Agentes.id_agente).all()
+    provistosC= Talles.query.order_by(Talles.id_agente).all()
+    return render_template("provistosc.html", lista_agentes=agentesC, provistos=provistosC)
+
+@app.route('/editar_licencia/<int:id_agente>', methods=['GET', 'POST'])
+@login_required
+def editar_licencia(id_agente):
+    licencia = CarnetConducir.query.all()
+
+    if request.method == 'POST':
+        fecha_otorgamiento = request.form.get('fecha_otorgamiento')
+        fecha_vencimiento = request.form.get('fecha_vencimiento')
+
+        # Validar y actualizar las fechas de otorgamiento y vencimiento
+        try:
+            fecha_otorgamiento = datetime.strptime(fecha_otorgamiento, '%Y-%m-%d').date()
+            fecha_vencimiento = datetime.strptime(fecha_vencimiento, '%Y-%m-%d').date()
+            licencia.fecha_otorg = fecha_otorgamiento
+            licencia.fecha_vencim = fecha_vencimiento
+            db.session.commit()
+            flash('Licencia actualizada con éxito', 'success')
+            return redirect(url_for('licenciasA'))  # Redirige a la página de licencias
+        except ValueError:
+            flash('Formato de fecha incorrecto', 'error')
+
+    return render_template('editar_licencia.html', licencia=licencia)
+
+
+
+
+
 
 
 
