@@ -98,6 +98,7 @@ with app.app_context():
 with app.app_context():
     class Salida(db.Model):
         id = db.Column(db.Integer, primary_key=True)
+        fecha = db.Column(db.Date)
         nmovil = db.Column(db.String(100))
         ag_cargo = db.Column(db.String(100))
         ag_chofer = db.Column(db.String(100))
@@ -205,9 +206,11 @@ def index():
             chaleco = request.form.get('chaleco')
             odometro = request.form.get('odometro')
             bolsos_trauma = request.form.get('bolsos_trauma')
+            fecha_actual = datetime.now()
 
             # Crea una nueva entrada en la base de datos
             nueva_salida = Salida(
+                fecha=fecha_actual,
                 nmovil=nmovil,
                 ag_cargo=ag_cargo,
                 ag_chofer=ag_chofer,

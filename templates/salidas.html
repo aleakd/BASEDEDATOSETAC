@@ -5,10 +5,11 @@
  <h1>Salidas</h1>
 
 
-    <table class="tabla_agentes" id="tablacarnet3" >
+    <table class="tabla_agentes table table-responsive" id="tablacarnet3" >
         <thead>
         <tr>
             <th>ID</th>
+            <th>fecha</th>
             <th>Número de Móvil</th>
             <th>Agente a Cargo</th>
             <th>Agente Chofer</th>
@@ -36,6 +37,7 @@
         {% for salida in salidas %}
             <tr>
                 <td>{{ salida.id }}</td>
+                <td>{{ salida.fecha }}</td>
                 <td>{{ salida.nmovil }}</td>
                 <td>{{ salida.ag_cargo }}</td>
                 <td>{{ salida.ag_chofer }}</td>
