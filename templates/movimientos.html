@@ -5,6 +5,7 @@
 <table class="tabla_agentes" id="tablacarnet2" >
         <thead>
         <tr>
+            <th>ID</th>
             <th>fecha</th>
             <th>Numero de movil</th>
             <th>Destino / Actividad</th>
@@ -19,6 +20,7 @@
     <tbody>
     {% for eco in moviles %}
     <tr>
+            <td>{{ eco.id_movimiento }}</td>
             <td>{{ eco.fecha }}</td>
             <td>{{ eco.numero_movil }}</td>
             <td>{{ eco.destino }}</td>

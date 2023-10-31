@@ -72,7 +72,59 @@
 
 
   </div>
+<!--FORMULARIO PARTE DE SALIDA-->
+  <div class="col-lg-6 col-md-12 text-center">
+    <h3 class="text-center">PARTE DE SALIDAS</h3>
+        <form class="form_ins" action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
+          <label style="color:white">PARTE DE SALIDA</label>
 
+          <input type="text" class="form-control" name="nmovil" placeholder="Numero de Movil" required="required" pattern="^(424|426|430|432|438|443|460|461|492|493|494|462|495|02)$" title="Colocar número de móvil válido" />
+
+          <input type="text" class="form-control" name="ag_cargo" placeholder="Agte. a cargo" />
+          <input type="text" class="form-control" name="ag_chofer" placeholder="Chofer" />
+          <input type="text" class="form-control" name="dotacion" placeholder="Dotacion" />
+          <input type="text" class="form-control" name="zona" placeholder="Zona" />
+          <input type="text" class="form-control" name="handys" placeholder="Handys N°"  />
+          <input type="number" class="form-control" name="gorgi" placeholder="Gorgi" required="required" min="0" max="5" />
+          <input type="number" class="form-control" name="pulasky" placeholder="Pulasky" required="required" min="0" max="5"/>
+          <input type="number" class="form-control" name="pala" placeholder="Pala" required="required" min="0" max="5"/>
+          <input type="number" class="form-control" name="mclood" placeholder="Mclood" required="required" min="0" max="5"/>
+          <input type="number" class="form-control" name="derqui" placeholder="Derqui" required="required" min="0" max="5"/>
+          <input type="number" class="form-control" name="bidon_nafta" placeholder="Bidon de nafta 10lts" required="required" />
+          <input type="text" class="form-control" name="bolsa_rescate" placeholder="Bolsa de rescate N°" required="required" />
+
+          <input type="number" class="form-control" name="torpedo" placeholder="Torpedo" required="required" min="0" max="3"/>
+          <input type="number" class="form-control" name="tabla" placeholder="Tabla" required="required" min="0" max="2"/>
+          <input type="number" class="form-control" name="conos" placeholder="Conos" required="required" min="0" max="7"/>
+
+          <label style="color:white">Sopladora</label>
+          <select class="form-control" name="Sopladora" placeholder="Sopladora" required="required">
+            <option value="ninguna">Ninguna</option>
+            <option value="Daihatsu">DAIHATSU</option>
+            <option value="lusqtoff">LUSQTOFF</option>
+          </select>
+
+          <label style="color:white">Cajon de motosierra</label>
+          <select class="form-control" name="cajon" placeholder="Cajon de motosierra" required="required">
+            <option value="ninguno">Ninguno</option>
+            <option value="cajon_1">CAJON 1</option>
+            <option value="cajon_2">CAJON 2</option>
+          </select>
+
+          <input type="number" class="form-control" name="chaleco" placeholder="Chaleco de flotacion" required="required" />
+          <input type="number" class="form-control" name="odometro" placeholder="Odometro" required="required" />
+          <input type="number" class="form-control" name="bolsos_trauma" placeholder="Bolso de Trauma y ferula N°" required="required" />
+
+
+
+          <button type="submit" name="parte_salida" class="btn btn-primary btn-lg">Parte de salida</button>
+
+
+
+
+
+</form>
+  </div>
 
 </div>
 

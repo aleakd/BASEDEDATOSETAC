@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+ <h1>Salidas</h1>
+
+
+    <table class="tabla_agentes" id="tablacarnet3" >
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Número de Móvil</th>
+            <th>Agente a Cargo</th>
+            <th>Agente Chofer</th>
+            <th>Dotación</th>
+            <th>Zona</th>
+            <th>Handys</th>
+            <th>Gorgi</th>
+            <th>Pulasky</th>
+            <th>Pala</th>
+            <th>Mclood</th>
+            <th>Derqui</th>
+            <th>Bidón de Nafta</th>
+            <th>Bolsa de Rescate</th>
+            <th>Torpedo</th>
+            <th>Tabla</th>
+            <th>Conos</th>
+            <th>Sopladora</th>
+            <th>Cajón</th>
+            <th>Chaleco</th>
+            <th>Odómetro</th>
+            <th>Bolsos de Trauma</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for salida in salidas %}
+            <tr>
+                <td>{{ salida.id }}</td>
+                <td>{{ salida.nmovil }}</td>
+                <td>{{ salida.ag_cargo }}</td>
+                <td>{{ salida.ag_chofer }}</td>
+                <td>{{ salida.dotacion }}</td>
+                <td>{{ salida.zona }}</td>
+                <td>{{ salida.handys }}</td>
+                <td>{{ salida.gorgi }}</td>
+                <td>{{ salida.pulasky }}</td>
+                <td>{{ salida.pala }}</td>
+                <td>{{ salida.mclood }}</td>
+                <td>{{ salida.derqui }}</td>
+                <td>{{ salida.bidon_nafta }}</td>
+                <td>{{ salida.bolsa_rescate }}</td>
+                <td>{{ salida.torpedo }}</td>
+                <td>{{ salida.tabla }}</td>
+                <td>{{ salida.conos }}</td>
+                <td>{{ salida.sopladora }}</td>
+                <td>{{ salida.cajon }}</td>
+                <td>{{ salida.chaleco }}</td>
+                <td>{{ salida.odometro }}</td>
+                <td>{{ salida.bolsos_trauma }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+<script>
+$(document).ready( function () {
+    $('#tablacarnet3').DataTable();
+} );
+</script>
+
+
+{% endblock %}
