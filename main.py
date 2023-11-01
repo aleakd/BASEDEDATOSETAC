@@ -120,6 +120,7 @@ with app.app_context():
         chaleco = db.Column(db.Integer)
         odometro = db.Column(db.Integer)
         bolsos_trauma = db.Column(db.Integer)
+        herramienta_adicional = db.Column(db.String(100))
 
 
     db.create_all()
@@ -206,6 +207,7 @@ def index():
             chaleco = request.form.get('chaleco')
             odometro = request.form.get('odometro')
             bolsos_trauma = request.form.get('bolsos_trauma')
+            herramienta_adicional = request.form.get('herramienta_adicional')
             fecha_actual = datetime.now()
 
             # Crea una nueva entrada en la base de datos
@@ -231,7 +233,8 @@ def index():
                 cajon=cajon,
                 chaleco=chaleco,
                 odometro=odometro,
-                bolsos_trauma=bolsos_trauma
+                bolsos_trauma=bolsos_trauma,
+                herramienta_adicional = herramienta_adicional
             )
 
             db.session.add(nueva_salida)
