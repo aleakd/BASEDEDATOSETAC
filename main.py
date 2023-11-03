@@ -121,6 +121,7 @@ with app.app_context():
         odometro = db.Column(db.Integer)
         bolsos_trauma = db.Column(db.Integer)
         herramienta_adicional = db.Column(db.String(100))
+        hora = db.Column(db.String(100))
 
 
     db.create_all()
@@ -208,7 +209,8 @@ def index():
             odometro = request.form.get('odometro')
             bolsos_trauma = request.form.get('bolsos_trauma')
             herramienta_adicional = request.form.get('herramienta_adicional')
-            fecha_actual = datetime.now()
+            fecha_actual = datetime.now().date()
+            hora_actual = datetime.now().strftime('%H:%M')
 
             # Crea una nueva entrada en la base de datos
             nueva_salida = Salida(
@@ -234,7 +236,9 @@ def index():
                 chaleco=chaleco,
                 odometro=odometro,
                 bolsos_trauma=bolsos_trauma,
-                herramienta_adicional = herramienta_adicional
+                herramienta_adicional=herramienta_adicional,
+                hora=hora_actual
+
             )
 
             db.session.add(nueva_salida)

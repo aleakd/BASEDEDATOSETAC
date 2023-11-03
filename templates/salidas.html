@@ -10,6 +10,7 @@
         <tr>
             <th>ID</th>
             <th>fecha</th>
+            <th>hora</th>
             <th>Número de Móvil</th>
             <th>Agente a Cargo</th>
             <th>Agente Chofer</th>
@@ -39,6 +40,7 @@
             <tr>
                 <td>{{ salida.id }}</td>
                 <td>{{ salida.fecha }}</td>
+                <td>{{ salida.hora }}</td>
                 <td>{{ salida.nmovil }}</td>
                 <td>{{ salida.ag_cargo }}</td>
                 <td>{{ salida.ag_chofer }}</td>
@@ -70,6 +72,10 @@
 <script>
 $(document).ready( function () {
     $('#tablacarnet3').DataTable();
+
+        $('div.dataTables_wrapper input[type="search"]').attr('placeholder', 'Buscador');
+
+
 } );
 </script>
 
