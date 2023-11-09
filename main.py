@@ -3,8 +3,11 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user, login_manager
 from datetime import datetime
+import pytz
+from pytz import timezone
 
 app = Flask(__name__)
+app.config['TIMEZONE'] = pytz.timezone('America/Argentina/Buenos_Aires')
 app.config['SECRET_KEY'] = 'ale12345678ale'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///guardiaA.db'
 db = SQLAlchemy(app)
@@ -128,16 +131,16 @@ with app.app_context():
 
 
 
-@app.route('/salidas', methods=['GET'])
+@app.route('/salidas', methods=['GET', 'POST'])
 def salidas():
     if request.method == 'POST':
         id_filtro = request.form['id_filtro']
         if id_filtro:
-            salidas = Salida.query.filter_by(id=id_filtro).all()
+            salidas = Salida.query.filter_by(id=id_filtro).order_by(Salida.id.desc()).all()
         else:
-            salidas = Salida.query.all()
+            salidas = Salida.query.order_by(Salida.id.desc()).all()
     else:
-        salidas = Salida.query.all()
+        salidas = Salida.query.order_by(Salida.id.desc()).all()
     return render_template('salidas.html', salidas=salidas)
 
 
@@ -210,7 +213,8 @@ def index():
             bolsos_trauma = request.form.get('bolsos_trauma')
             herramienta_adicional = request.form.get('herramienta_adicional')
             fecha_actual = datetime.now().date()
-            hora_actual = datetime.now().strftime('%H:%M')
+            hora_actual_utc = datetime.now(timezone('UTC'))
+            hora_actual_buenos_aires = hora_actual_utc.astimezone(app.config['TIMEZONE'])
 
             # Crea una nueva entrada en la base de datos
             nueva_salida = Salida(
@@ -237,7 +241,7 @@ def index():
                 odometro=odometro,
                 bolsos_trauma=bolsos_trauma,
                 herramienta_adicional=herramienta_adicional,
-                hora=hora_actual
+                hora=hora_actual_buenos_aires.strftime('%H:%M')
 
             )
 

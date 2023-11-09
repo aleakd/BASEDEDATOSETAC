@@ -70,14 +70,19 @@
 
 
 <script>
-$(document).ready( function () {
-    $('#tablacarnet3').DataTable();
+$(document).ready(function () {
+    $('#tablacarnet3').DataTable({
+        "order": [[0, "desc"]]  // Ordenar por la primera columna en forma descendente
+    });
 
-        $('div.dataTables_wrapper input[type="search"]').attr('placeholder', 'Buscador');
-
-
-} );
+    $('div.dataTables_wrapper input[type="search"]').attr('placeholder', 'Buscador');
+});
 </script>
+
+
+
+
+
 
 
 {% endblock %}

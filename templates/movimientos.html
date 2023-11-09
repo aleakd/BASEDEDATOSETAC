@@ -38,12 +38,14 @@
 <p>No hay movimientos registrados.</p>
 {% endif %}
 
-<script>
-$(document).ready( function () {
-    $('#tablacarnet2').DataTable();
-    $('div.dataTables_wrapper input[type="search"]').attr('placeholder', 'Buscador');
-} );
-</script>
+    <script>
+    $(document).ready( function () {
+        $('#tablacarnet2').DataTable({
+        "order": [[0, "desc"]]  // Ordenar por la primera columna en forma descendente
+    });
+        $('div.dataTables_wrapper input[type="search"]').attr('placeholder', 'Buscador');
+    } );
+    </script>
 
 
 {% endblock %}
