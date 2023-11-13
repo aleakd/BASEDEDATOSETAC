@@ -30,7 +30,7 @@
   <div class="alert alert-primary">
     <ul class="list-unstyled">
       {% for message in messages %}
-      <li>{{ message }}</li>
+      <li> <h2 id="miH2">{{ message }}</h2></li>
       {% endfor %}
     </ul>
   </div>
@@ -131,6 +131,13 @@
   </section>
 
 
+<script>
+        // JavaScript para agregar y quitar la clase cada segundo
+        setInterval(function() {
+            var h2 = document.getElementById('miH2');
+            h2.classList.toggle('cambio-color');
+        }, 1000);
+    </script>
 
 
 {% endblock %}

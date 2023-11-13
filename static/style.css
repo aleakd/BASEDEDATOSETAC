@@ -184,3 +184,28 @@ padding-top:200px;
 }
 
 
+h2 {
+color:red;
+background-color:black;
+}
+
+/* Clase para animar el cambio de color */
+.cambio-color {
+    animation: cambio 1s infinite;
+}
+
+/* Definición de la animación */
+@keyframes cambio {
+    0% {
+        color: red;
+    }
+    50% {
+        color: blue;
+    }
+    75% {
+        color: white;
+    }
+    100% {
+        color: green;
+    }
+}
