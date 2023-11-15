@@ -167,10 +167,10 @@ def registrar_parte():
         num_movil = request.form['num-movil']
         ag_responsable = request.form['ag_responsable']
         dotacion = request.form['dotacion']
-        fecha_arribo = request.form['fecha_arribo']
-        hora_arribo = request.form['hora_arribo']
-        fecha_finalizacion = request.form['fecha_finalizacion']
-        hora_finalizacion = request.form['hora_finalizacion']
+        fecha_arribo = datetime.strptime(request.form['fecha_arribo'], '%Y-%m-%d')
+        hora_arribo = datetime.strptime(request.form['hora_arribo'], '%H:%M').time()
+        fecha_finalizacion = datetime.strptime(request.form['fecha_finalizacion'], '%Y-%m-%d')
+        hora_finalizacion = datetime.strptime(request.form['hora_finalizacion'], '%H:%M').time()
         tipo_intervencion = request.form['tipo_intervencion']
         calle_altura = request.form['calle_altura']
         comuna_municipio = request.form['comuna_municipio']
@@ -189,8 +189,8 @@ def registrar_parte():
 
         intervencion = Parte_inter(
             num_movil=num_movil,
-            ag_responsable=ag_responsable,
-            dotacion=dotacion,
+            ag_responsable=ag_responsable.upper(),
+            dotacion=dotacion.upper(),
             fecha_arribo=fecha_arribo,
             hora_arribo=hora_arribo,
             fecha_finalizacion=fecha_finalizacion,
@@ -217,6 +217,11 @@ def registrar_parte():
 
     return render_template("registrar_parte.html")
 
+
+@app.route('/partes', methods=['GET', 'POST'])
+def partes():
+    registros = Parte_inter.query.all()
+    return render_template("partes.html", registros=registros)
 
 
 
@@ -347,6 +352,9 @@ def movimientos():
     movimientos = Movimientos_moviles.query.order_by(Movimientos_moviles.id_movimiento).all()
 
     return render_template("movimientos.html", moviles=movimientos)
+
+
+
 
 
 @app.route('/logout')

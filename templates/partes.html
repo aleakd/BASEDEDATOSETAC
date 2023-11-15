@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-lg-12 text-center">
+        <h3 class="text-center titulo_form_index">Historial de Intervenciones</h3>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Número de Móvil</th>
+                    <th scope="col">Agente Responsable</th>
+                    <th scope="col">Dotación</th>
+                    <th scope="col">Fecha Arribo</th>
+                    <th scope="col">Hora Arribo</th>
+                    <th scope="col">Fecha Finalización</th>
+                    <th scope="col">Hora Finalización</th>
+                    <th scope="col">Tipo de Intervención</th>
+                    <th scope="col">Calle y Altura</th>
+                    <th scope="col">Comuna/Municipio/Paraje</th>
+                    <th scope="col">Acceso al Lugar</th>
+                    <th scope="col">Superficie Afectada</th>
+                    <th scope="col">Material Combustible</th>
+                    <th scope="col">Viviendas</th>
+                    <th scope="col">Vehículos</th>
+                    <th scope="col">Personal de Salud</th>
+                    <th scope="col">Personal Policial</th>
+                    <th scope="col">Personal de Bomberos</th>
+                    <th scope="col">Defensa Civil</th>
+                    <th scope="col">Otro Equipo</th>
+                    <th scope="col">Personal Lesionado</th>
+                    <th scope="col">Resumen</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for registro in registros %}
+                    <tr>
+                        <td>{{ registro.num_movil }}</td>
+                        <td>{{ registro.ag_responsable }}</td>
+                        <td>{{ registro.dotacion }}</td>
+                        <td>{{ registro.fecha_arribo }}</td>
+                        <td>{{ registro.hora_arribo }}</td>
+                        <td>{{ registro.fecha_finalizacion }}</td>
+                        <td>{{ registro.hora_finalizacion }}</td>
+                        <td>{{ registro.tipo_intervencion }}</td>
+                        <td>{{ registro.calle_altura }}</td>
+                        <td>{{ registro.comuna_municipio }}</td>
+                        <td>{{ registro.acceso_lugar }}</td>
+                        <td>{{ registro.sup_afectada }}</td>
+                        <td>{{ registro.material_combustible }}</td>
+                        <td>{{ registro.viviendas }}</td>
+                        <td>{{ registro.vehiculos }}</td>
+                        <td>{{ registro.personal_salud }}</td>
+                        <td>{{ registro.personal_policial }}</td>
+                        <td>{{ registro.personal_bomberos }}</td>
+                        <td>{{ registro.defensa_civil }}</td>
+                        <td>{{ registro.otro_equipo }}</td>
+                        <td>{{ registro.personal_lesionado }}</td>
+                        <td>{{ registro.resumen }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
