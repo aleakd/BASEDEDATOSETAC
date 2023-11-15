@@ -30,7 +30,7 @@
   <div class="alert alert-primary">
     <ul class="list-unstyled">
       {% for message in messages %}
-      <li> <h2 id="miH2">{{ message }}</h2></li>
+      <li> <h2 id="miH202">{{ message }}</h2></li>
       {% endfor %}
     </ul>
   </div>
@@ -45,7 +45,23 @@
           <label style="color:white">Fecha de Salida</label>
           <input type="date" class="form-control" name="fecha" placeholder="Fecha" required="required" /> <br>
 
-          <input type="number" class="form-control" name="movil" placeholder="Numero de Movil" required="required" />
+          <select class="form-control" name="movil" placeholder="Movil" required="required">
+            <option value="424">424</option>
+            <option value="426">426</option>
+            <option value="430">430</option>
+            <option value="432">432</option>
+            <option value="438">438</option>
+            <option value="443">443</option>
+            <option value="460">460 1</option>
+            <option value="461">461</option>
+            <option value="492">492</option>
+            <option value="493">493</option>
+            <option value="494">494</option>
+            <option value="02">C-02</option>
+            <option value="Volcador">Volcador</option>
+
+          </select>
+
 
           <input type="text" class="form-control" name="destino_actividad" placeholder="Destino / Actividad" />
 
@@ -77,7 +93,23 @@
         <form class="form_ins" action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
           <label style="color:white">PARTE DE SALIDA</label>
 
-          <input type="text" class="form-control" name="nmovil" placeholder="Numero de Movil" required="required" pattern="^(424|426|430|432|438|443|460|461|492|493|494|462|495|02)$" title="Colocar número de móvil válido" />
+
+          <select class="form-control" name="nmovil" placeholder="Numero de Movil" required="required">
+            <option value="424">424</option>
+            <option value="426">426</option>
+            <option value="430">430</option>
+            <option value="432">432</option>
+            <option value="438">438</option>
+            <option value="443">443</option>
+            <option value="460">460 1</option>
+            <option value="461">461</option>
+            <option value="492">492</option>
+            <option value="493">493</option>
+            <option value="494">494</option>
+            <option value="02">C-02</option>
+            <option value="Volcador">Volcador</option>
+
+          </select>
 
           <input type="text" class="form-control" name="ag_cargo" placeholder="Agte. a cargo" />
           <input type="text" class="form-control" name="ag_chofer" placeholder="Chofer" />

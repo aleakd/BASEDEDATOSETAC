@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+<body id="registrar_parte-body">
+
+<div class="row" id="div_parte">
+  <div class="col-lg-6 col-md-12 text-center">
+    <h3 class="text-center titulo_form_index">PARTE DE INTERVENCIONES</h3>
+      <form class="form_ins" action="{{ url_for('registrar_parte') }}" method="post" enctype="multipart/form-data">
+
+          <select class="form-control" name="num-movil" placeholder="Movil" required="required">
+            <option value="424">424</option>
+            <option value="426">426</option>
+            <option value="430">430</option>
+            <option value="432">432</option>
+            <option value="438">438</option>
+            <option value="443">443</option>
+            <option value="460">460 1</option>
+            <option value="461">461</option>
+            <option value="492">492</option>
+            <option value="493">493</option>
+            <option value="494">494</option>
+            <option value="02">C-02</option>
+            <option value="Volcador">Volcador</option>
+          </select>
+
+          <input type="text" class="form-control" name="ag_responsable" placeholder="Agte. a cargo" required="required" />
+          <input type="text" class="form-control" name="dotacion" placeholder="Dotacion" required="required" />
+
+           <label style="color:white">Fecha y Hora de arribo a la intervencion</label>
+          <input type="date" class="form-control" name="fecha_arribo" placeholder="Fecha de arribo" required="required" />
+          <input type="time" class="form-control" name="hora_arribo" placeholder="Hora de arribo" required="required" /> <br>
+
+          <label style="color:white">Fecha y Hora de finalizacion a la intervencion</label>
+          <input type="date" class="form-control" name="fecha_finalizacion" placeholder="Fecha de finalizacion" required="required" />
+          <input type="time" class="form-control" name="hora_finalizacion" placeholder="Hora de finalizacion" required="required" /> <br>
+
+          <input type="text" class="form-control" name="tipo_intervencion" placeholder="Tipo de Intervencion" required="required" >
+
+          <input type="text" class="form-control" name="calle_altura" placeholder="Calle y altura" required="required" >
+          <input type="text" class="form-control" name="comuna_municipio" placeholder="Comuna Municipio Paraje" required="required" >
+          <input type="text" class="form-control" name="acceso_lugar" placeholder="Acceso al lugar" required="required" >
+          <input type="text" class="form-control" name="sup_afectada" placeholder="Superficie afectada" required="required" >
+
+          <label style="color:white">Material Afectado</label>
+          <input type="text" class="form-control" name="material_combustible" placeholder="Material Combustible" required="required" >
+          <input type="text" class="form-control" name="viviendas" placeholder="Viviendas" required="required" >
+          <input type="text" class="form-control" name="vehiculos" placeholder="Vehiculos" required="required" >
+
+
+          <label style="color:white">Colaboracion</label>
+          <input type="text" class="form-control" name="personal_salud" placeholder="Personal de Salud(a cargo, matricula)" required="required" >
+          <input type="text" class="form-control" name="personal_policial" placeholder="Personal de Policia(a cargo, Movil)" required="required" >
+          <input type="text" class="form-control" name="personal_bomberos" placeholder="Personal de Bomberos" required="required" >
+          <input type="text" class="form-control" name="defensa_civil" placeholder="Defensa Civil" required="required" >
+          <input type="text" class="form-control" name="otro_equipo" placeholder="Algun Otro Equipo" required="required" >
+
+          <input type="text" class="form-control" name="personal_lesionado" placeholder="Personal Lesionado de la Dotacion" required="required" >
+
+          <input type="text" class="form-control" name="resumen" placeholder="Resumen de la intervención" required="required" >
+
+          <button type="submit" name="Parte_inter" class="btn btn-primary btn-lg">Registro de Parte</button>
+        </form>
+
+
+
+  </div>
+</div>
+
+
+{% endblock %}

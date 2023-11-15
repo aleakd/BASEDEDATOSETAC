@@ -129,6 +129,95 @@ with app.app_context():
 
     db.create_all()
 
+with app.app_context():
+    class Parte_inter(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        num_movil = db.Column(db.String(20))
+        ag_responsable = db.Column(db.String(50))
+        dotacion = db.Column(db.String(50))
+        fecha_arribo = db.Column(db.Date)
+        hora_arribo = db.Column(db.Time)
+        fecha_finalizacion = db.Column(db.Date)
+        hora_finalizacion = db.Column(db.Time)
+        tipo_intervencion = db.Column(db.String(50))
+        calle_altura = db.Column(db.String(100))
+        comuna_municipio = db.Column(db.String(100))
+        acceso_lugar = db.Column(db.String(100))
+        sup_afectada = db.Column(db.String(50))
+        material_combustible = db.Column(db.String(50))
+        viviendas = db.Column(db.String(50))
+        vehiculos = db.Column(db.String(50))
+        personal_salud = db.Column(db.String(100))
+        personal_policial = db.Column(db.String(100))
+        personal_bomberos = db.Column(db.String(100))
+        defensa_civil = db.Column(db.String(100))
+        otro_equipo = db.Column(db.String(100))
+        personal_lesionado = db.Column(db.String(100))
+        resumen = db.Column(db.String(500))
+
+    db.create_all()
+
+
+
+
+
+@app.route('/registrar_parte', methods=['GET', 'POST'])
+def registrar_parte():
+    if request.method == 'POST':
+        num_movil = request.form['num-movil']
+        ag_responsable = request.form['ag_responsable']
+        dotacion = request.form['dotacion']
+        fecha_arribo = request.form['fecha_arribo']
+        hora_arribo = request.form['hora_arribo']
+        fecha_finalizacion = request.form['fecha_finalizacion']
+        hora_finalizacion = request.form['hora_finalizacion']
+        tipo_intervencion = request.form['tipo_intervencion']
+        calle_altura = request.form['calle_altura']
+        comuna_municipio = request.form['comuna_municipio']
+        acceso_lugar = request.form['acceso_lugar']
+        sup_afectada = request.form['sup_afectada']
+        material_combustible = request.form['material_combustible']
+        viviendas = request.form['viviendas']
+        vehiculos = request.form['vehiculos']
+        personal_salud = request.form['personal_salud']
+        personal_policial = request.form['personal_policial']
+        personal_bomberos = request.form['personal_bomberos']
+        defensa_civil = request.form['defensa_civil']
+        otro_equipo = request.form['otro_equipo']
+        personal_lesionado = request.form['personal_lesionado']
+        resumen = request.form['resumen']
+
+        intervencion = Parte_inter(
+            num_movil=num_movil,
+            ag_responsable=ag_responsable,
+            dotacion=dotacion,
+            fecha_arribo=fecha_arribo,
+            hora_arribo=hora_arribo,
+            fecha_finalizacion=fecha_finalizacion,
+            hora_finalizacion=hora_finalizacion,
+            tipo_intervencion=tipo_intervencion,
+            calle_altura=calle_altura,
+            comuna_municipio=comuna_municipio,
+            acceso_lugar=acceso_lugar,
+            sup_afectada=sup_afectada,
+            material_combustible=material_combustible,
+            viviendas=viviendas,
+            vehiculos=vehiculos,
+            personal_salud=personal_salud,
+            personal_policial=personal_policial,
+            personal_bomberos=personal_bomberos,
+            defensa_civil=defensa_civil,
+            otro_equipo=otro_equipo,
+            personal_lesionado=personal_lesionado,
+            resumen=resumen
+        )
+
+        db.session.add(intervencion)
+        db.session.commit()
+
+    return render_template("registrar_parte.html")
+
+
 
 
 @app.route('/salidas', methods=['GET', 'POST'])
@@ -248,6 +337,7 @@ def index():
             db.session.add(nueva_salida)
             db.session.commit()
             flash("Parte de salida registrado correctamente")
+
 
     return render_template("index.html", moviles=movimientos)
 
