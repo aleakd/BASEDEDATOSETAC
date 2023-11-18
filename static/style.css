@@ -31,11 +31,6 @@ font-size:18px;
 font-family:"Merriweather";
 
 }
-.navbar-collapse {
-    background-color: ;
-}
-
-
 
 .titulo_index{
 font-family:"Roboto Slab";
@@ -51,6 +46,14 @@ background-color:#3f80d58f;
 
 
 }
+
+
+/* Cambia el color del texto a blanco cuando se colapsa la pantalla */
+.navbar-toggler{
+background-color:#08dfd3;
+border-radius:30%;
+}
+
 
 
 /* Estilos para el formulario */
@@ -92,8 +95,11 @@ border-radius:30px;
 
 
 div.dataTables_wrapper input[type="search"] {
-    background-color: #F8990F; /* Cambia este color al que desees */
+    background-color: #2ff009; /* Cambia este color al que desees */
+
 }
+
+
 
 
 
@@ -142,6 +148,12 @@ background-color: #84E8EC;
     background-color: #84E8EC;
 }
 
+/* Estilo para resaltar filas al pasar el cursor por encima */
+.tabla_agentes td:hover {
+    background-color: #36c7e7;
+    transform: scale(1.3);
+
+
 .piepag{
 color:black;
 margin-top: 350px;
@@ -157,12 +169,16 @@ padding:20px;
     color: #4a24f6;
 }
 
+
+
 /* Estilo para la línea horizontal */
 .linea-horizontal {
     width: 300px; /* Ancho total de la línea */
     text-align: center; /* Centrar el hr horizontalmente */
     position: relative; /* Permite superponer elementos */
 }
+
+
 .usuarios_registrados{
 background: #757F9A;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #D7DDE8, #757F9A);  /* Chrome 10-25, Safari 5.1-6 */
@@ -179,15 +195,6 @@ body#moviles-body {
   background-attachment: fixed;
 }
 
-
-
-    /* Cambia el color del texto a blanco cuando se colapsa la pantalla */
-    .navbar-toggler{
-    background-color:yellow;;
-    }
-
-
-
 .registro_moviles{
 padding-top:200px;
 }
@@ -197,6 +204,11 @@ h2 {
 color:red;
 background-color:black;
 }
+
+
+
+
+
 
 /* Clase para animar el cambio de color */
 .cambio-color {

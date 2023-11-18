@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-
+{% if registros %}
 <div class="row">
     <div class="col-lg-12 text-center">
         <h3 class="text-center titulo_form_index">Historial de Intervenciones</h3>
 
-        <table class="table">
+        <table class="tabla_agentes table table-responsive" id="tablacarnet3" >
             <thead>
                 <tr>
+                    <th scope="col">Id</th>
                     <th scope="col">Número de Móvil</th>
                     <th scope="col">Agente Responsable</th>
                     <th scope="col">Dotación</th>
@@ -36,6 +37,7 @@
             <tbody>
                 {% for registro in registros %}
                     <tr>
+                        <td>{{ registro.id }}</td>
                         <td>{{ registro.num_movil }}</td>
                         <td>{{ registro.ag_responsable }}</td>
                         <td>{{ registro.dotacion }}</td>
@@ -62,7 +64,20 @@
                 {% endfor %}
             </tbody>
         </table>
+ {% else %}
+<p>No hay movimientos registrados.</p>
+{% endif %}
     </div>
 </div>
+
+
+<script>
+    $(document).ready( function () {
+        $('#tablacarnet3').DataTable({
+        "order": [[0, "desc"]]  // Ordenar por la primera columna en forma descendente
+    });
+        $('div.dataTables_wrapper input[type="search"]').attr('placeholder', 'Buscador');
+    } );
+    </script>
 
 {% endblock %}
