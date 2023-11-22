@@ -267,7 +267,7 @@ def index():
             hora_llegada = datetime.strptime(request.form['hora_llegada'],
                                              '%H:%M').time()  # Convierte la cadena de hora a objeto de hora
             hora_salida = datetime.strptime(request.form['hora_salida'], '%H:%M').time()
-            novedades= request.form['novedades']
+            novedades=request.form['novedades']
 
             nuevo_registro = Movimientos_moviles(
                 fecha=fecha,
@@ -279,7 +279,7 @@ def index():
                 hora_salida=hora_salida,
                 a_cargo=request.form.get('a_cargo').upper(),
                 chofer=request.form.get('chofer').upper(),
-                novedades=request.form.get('novedades')
+                novedades=novedades
             )
 
             db.session.add(nuevo_registro)
