@@ -27,7 +27,7 @@
 
   {% with messages = get_flashed_messages() %}
   {% if messages %}
-  <div class="alert alert-primary">
+  <div class="mensaa alert alert-light">
     <ul class="list-unstyled">
       {% for message in messages %}
       <li> <h2 id="miH202">{{ message }}</h2></li>
@@ -163,13 +163,47 @@
   </section>
 
 
+
+
+
+
+<section id="ultimosmv">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 text-center">
+
+ {% if ultimos %}
+                <table class="tabla_agentes" id="tablacarnet2">
+                    <thead>
+                        <tr>
+                            <th>N° de Móvil</th>
+                            <th>Número de ID</th>
+                            <th>Últimos km de salida</th>
+                            <th>Últimos km de llegada</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in ultimos %}
+                            <tr>
+                                <td>{{ item.numero_movil }}</td>
+                                <td>{{ item.last_id }}</td>
+                                <td>{{ item.km_salida }}</td>
+                                <td>{{ item.km_llegada }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+
 <script>
-        // JavaScript para agregar y quitar la clase cada segundo
         setInterval(function() {
-            var h2 = document.getElementById('miH2');
+            var h2 = document.getElementById('miH202');
             h2.classList.toggle('cambio-color');
         }, 1000);
-    </script>
+</script>
 
 
 {% endblock %}

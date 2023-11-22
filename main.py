@@ -97,6 +97,7 @@ with app.app_context():
         km_llegada = db.Column(db.Integer)
         a_cargo = db.Column(db.String(50))
         chofer = db.Column(db.String(50))
+        novedades = db.Column(db.String(100))
 
 with app.app_context():
     class Salida(db.Model):
@@ -248,6 +249,13 @@ def load_user(user_id):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    resultados_consulta = db.session.query(
+        Movimientos_moviles.numero_movil,
+        db.func.max(Movimientos_moviles.id_movimiento).label('last_id'),
+        Movimientos_moviles.km_salida,
+        Movimientos_moviles.km_llegada
+    ).group_by(Movimientos_moviles.numero_movil).order_by(Movimientos_moviles.numero_movil).all()
+
     if request.method == 'POST':
         if 'registro_movil' in request.form:
             fecha = datetime.strptime(request.form['fecha'],
@@ -259,6 +267,7 @@ def index():
             hora_llegada = datetime.strptime(request.form['hora_llegada'],
                                              '%H:%M').time()  # Convierte la cadena de hora a objeto de hora
             hora_salida = datetime.strptime(request.form['hora_salida'], '%H:%M').time()
+            novedades= request.form['novedades']
 
             nuevo_registro = Movimientos_moviles(
                 fecha=fecha,
@@ -269,7 +278,8 @@ def index():
                 hora_llegada=hora_llegada,
                 hora_salida=hora_salida,
                 a_cargo=request.form.get('a_cargo').upper(),
-                chofer=request.form.get('chofer').upper()
+                chofer=request.form.get('chofer').upper(),
+                novedades=request.form.get('novedades')
             )
 
             db.session.add(nuevo_registro)
@@ -344,7 +354,7 @@ def index():
             flash("Parte de salida registrado correctamente")
 
 
-    return render_template("index.html", moviles=movimientos)
+    return render_template("index.html", moviles=movimientos, ultimos=resultados_consulta)
 
 
 @app.route('/movimientos')
