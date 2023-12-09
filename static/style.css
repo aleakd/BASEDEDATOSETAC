@@ -53,6 +53,10 @@ background-color:green;
 color:yellow;
 }
 
+.usuario_online{
+color:red;
+}
+
 
 /* Cambia el color del texto a blanco cuando se colapsa la pantalla */
 .navbar-toggler{
@@ -86,8 +90,8 @@ input[type=text], input[type=email], textarea {
 
 /* Estilos para el botón del formulario */
 button[type=submit] {
-  background: rgb(34,88,195);
-background: linear-gradient(0deg, rgba(34,88,195,1) 0%, rgba(241,0,11,1) 100%);
+ background: rgb(8,223,211);
+background: linear-gradient(0deg, rgba(8,223,211,1) 0%, rgba(0,241,29,1) 100%);
   color: black;
   padding: 20px 20px;
   border: none;

@@ -46,6 +46,7 @@
           <input type="date" class="form-control" name="fecha" placeholder="Fecha" required="required" /> <br>
 
           <select class="form-control" name="movil" placeholder="Movil" required="required">
+             <option value="" disabled selected>Selecciona un número de móvil</option>
             <option value="424">424</option>
             <option value="426">426</option>
             <option value="430">430</option>
@@ -57,7 +58,8 @@
             <option value="492">492</option>
             <option value="493">493</option>
             <option value="494">494</option>
-            <option value="02">C-02</option>
+            <option value="C-02">C-02</option>
+            <option value="C-01">C-01</option>
             <option value="Volcador">Volcador</option>
 
           </select>
@@ -97,6 +99,7 @@
 
 
           <select class="form-control" name="nmovil" placeholder="Numero de Movil" required="required">
+             <option value="" disable selected>Selecciona un número de móvil</option>
             <option value="424">424</option>
             <option value="426">426</option>
             <option value="430">430</option>
@@ -108,10 +111,14 @@
             <option value="492">492</option>
             <option value="493">493</option>
             <option value="494">494</option>
-            <option value="02">C-02</option>
+            <option value="C-02">C-02</option>
+            <option value="C-01">C-01</option>
             <option value="Volcador">Volcador</option>
 
           </select>
+
+          <input type="number" class="form-control" name="odometro" placeholder="ODOMETRO / KM" required="required" />
+
 
           <input type="text" class="form-control" name="ag_cargo" placeholder="Agte. a cargo" />
           <input type="text" class="form-control" name="ag_chofer" placeholder="Chofer" />
@@ -145,7 +152,6 @@
           </select>
 
           <input type="number" class="form-control" name="chaleco" placeholder="Chaleco de flotacion" required="required" />
-          <input type="number" class="form-control" name="odometro" placeholder="Odometro" required="required" />
           <input type="number" class="form-control" name="bolsos_trauma" placeholder="Bolso de Trauma y ferula N°" required="required" />
           <input type="text" class="form-control" name="herramienta_adicional" placeholder="Mat. o equipo adicional"  />
 
@@ -172,6 +178,7 @@
 <section id="ultimosmv">
   <div class="row">
     <div class="col-lg-12 col-md-12 text-center">
+        <h3 class="text-center titulo_form_index">CONTROL DE KILOMETROS POR MOVIL</h3>
 
  {% if ultimos %}
                 <table class="tabla_agentes" id="tablacarnet2">
@@ -209,5 +216,3 @@
 
 
 {% endblock %}
-
-

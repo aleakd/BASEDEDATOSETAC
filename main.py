@@ -15,6 +15,12 @@ db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+
+#------------------------------------------
+
+
+
+
 # TABLAS EN BASE DE DATOS:
 
 with app.app_context():
@@ -41,6 +47,11 @@ with app.app_context():
     # Line below only required once, when creating DB.
     db.create_all()
 
+
+
+
+
+
 with app.app_context():
     class User(UserMixin, db.Model):
         id = db.Column(db.Integer, primary_key=True)
@@ -53,6 +64,9 @@ with app.app_context():
     # Line below only required once, when creating DB.
     db.create_all()
 
+
+
+
 with app.app_context():
     class CarnetConducir(db.Model):
         __tablename__ = 'CarnetConducir'  # Agrega esta línea para especificar el nombre de la tabla en la base de datos
@@ -61,6 +75,10 @@ with app.app_context():
         fecha_otorg = db.Column(db.Date)
         fecha_vencim = db.Column(db.Date)
         Observacion = db.Column(db.String(1000))
+
+
+
+
 
 with app.app_context():
     class Talles(db.Model):
@@ -75,6 +93,9 @@ with app.app_context():
         Buzo = db.Column(db.String(10))
         Campera = db.Column(db.String(10))
 
+
+
+
 with app.app_context():
     class Cambiosguardia(db.Model):
         __tablename__ = 'Cambiosguardia'  # Agrega esta línea para especificar el nombre de la tabla en la base de datos
@@ -83,6 +104,9 @@ with app.app_context():
         Id_agente_cubre = db.Column(db.Integer)
         fecha_devolucion = db.Column(db.Date)
         Motivo = db.Column(db.String(1000))
+
+
+
 
 with app.app_context():
     class Movimientos_moviles(db.Model):
@@ -98,6 +122,10 @@ with app.app_context():
         a_cargo = db.Column(db.String(50))
         chofer = db.Column(db.String(50))
         novedades = db.Column(db.String(100))
+
+
+
+
 
 with app.app_context():
     class Salida(db.Model):
@@ -130,6 +158,9 @@ with app.app_context():
 
     db.create_all()
 
+
+
+
 with app.app_context():
     class Parte_inter(db.Model):
         id = db.Column(db.Integer, primary_key=True)
@@ -158,93 +189,31 @@ with app.app_context():
 
     db.create_all()
 
+with app.app_context():
+    class Asistencias(db.Model):
+        __tablename__ = 'asistencias'
+        id_asistencia = db.Column(db.Integer, primary_key=True)
+        Id_agente = db.Column(db.Integer)
+        fecha = db.Column(db.Date)
+        hora = db.Column(db.String(10))
+        almuerza = db.Column(db.String(10))
+        cena = db.Column(db.String(10))
+
+
+    db.create_all()
 
 
 
 
-@app.route('/registrar_parte', methods=['GET', 'POST'])
-def registrar_parte():
-    if request.method == 'POST':
-        num_movil = request.form['num-movil']
-        ag_responsable = request.form['ag_responsable']
-        dotacion = request.form['dotacion']
-        fecha_arribo = datetime.strptime(request.form['fecha_arribo'], '%Y-%m-%d')
-        hora_arribo = datetime.strptime(request.form['hora_arribo'], '%H:%M').time()
-        fecha_finalizacion = datetime.strptime(request.form['fecha_finalizacion'], '%Y-%m-%d')
-        hora_finalizacion = datetime.strptime(request.form['hora_finalizacion'], '%H:%M').time()
-        tipo_intervencion = request.form['tipo_intervencion']
-        calle_altura = request.form['calle_altura']
-        comuna_municipio = request.form['comuna_municipio']
-        acceso_lugar = request.form['acceso_lugar']
-        sup_afectada = request.form['sup_afectada']
-        material_combustible = request.form['material_combustible']
-        viviendas = request.form['viviendas']
-        vehiculos = request.form['vehiculos']
-        personal_salud = request.form['personal_salud']
-        personal_policial = request.form['personal_policial']
-        personal_bomberos = request.form['personal_bomberos']
-        defensa_civil = request.form['defensa_civil']
-        otro_equipo = request.form['otro_equipo']
-        personal_lesionado = request.form['personal_lesionado']
-        resumen = request.form['resumen']
-
-        intervencion = Parte_inter(
-            num_movil=num_movil,
-            ag_responsable=ag_responsable.upper(),
-            dotacion=dotacion.upper(),
-            fecha_arribo=fecha_arribo,
-            hora_arribo=hora_arribo,
-            fecha_finalizacion=fecha_finalizacion,
-            hora_finalizacion=hora_finalizacion,
-            tipo_intervencion=tipo_intervencion,
-            calle_altura=calle_altura,
-            comuna_municipio=comuna_municipio,
-            acceso_lugar=acceso_lugar,
-            sup_afectada=sup_afectada,
-            material_combustible=material_combustible,
-            viviendas=viviendas,
-            vehiculos=vehiculos,
-            personal_salud=personal_salud,
-            personal_policial=personal_policial,
-            personal_bomberos=personal_bomberos,
-            defensa_civil=defensa_civil,
-            otro_equipo=otro_equipo,
-            personal_lesionado=personal_lesionado,
-            resumen=resumen
-        )
-
-        db.session.add(intervencion)
-        db.session.commit()
-
-    return render_template("registrar_parte.html")
 
 
-@app.route('/partes', methods=['GET', 'POST'])
-def partes():
-    registros = Parte_inter.query.all()
-    return render_template("partes.html", registros=registros)
-
-
-
-@app.route('/salidas', methods=['GET', 'POST'])
-def salidas():
-    if request.method == 'POST':
-        id_filtro = request.form['id_filtro']
-        if id_filtro:
-            salidas = Salida.query.filter_by(id=id_filtro).order_by(Salida.id.desc()).all()
-        else:
-            salidas = Salida.query.order_by(Salida.id.desc()).all()
-    else:
-        salidas = Salida.query.order_by(Salida.id.desc()).all()
-    return render_template('salidas.html', salidas=salidas)
-
-
-
-
+#--------------------FIN DE TABLAS DE DATOS-----------------------------------------------
 
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+#----------------------------------------------
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -287,7 +256,7 @@ def index():
             flash('Se registro correctamente el movimiento del movil')
         if 'parte_salida' in request.form:
             nmovil = request.form.get('nmovil')
-            ag_cargo = request.form.get('ag_cargo')
+            ag_cargo = request.form.get('ag_cargo').upper()
             ag_chofer = request.form.get('ag_chofer')
             dotacion = request.form.get('dotacion')
             zona = request.form.get('zona')
@@ -356,6 +325,66 @@ def index():
 
     return render_template("index.html", moviles=movimientos, ultimos=resultados_consulta)
 
+#----------------------------------------------
+
+
+@app.route('/asistencias', methods=['GET', 'POST'])
+def asistencias():
+    fecha_actual = datetime.now().date()
+    hora_actual_utc = datetime.now(timezone('UTC'))
+    hora_actual_buenos_aires = hora_actual_utc.astimezone(app.config['TIMEZONE'])
+    hora_actual_str = hora_actual_buenos_aires.strftime('%H:%M')
+
+    if request.method == 'POST':
+        dni_agente = request.form.get('dni_agente')
+
+        # Verificar si el agente existe en la tabla Agentes
+        agente_existente = Agentes.query.filter_by(dni=dni_agente).first()
+
+        if not agente_existente:
+            flash('No se puede registrar la asistencia. El DNI no está registrado.')
+            return redirect(url_for("index"))
+
+        # Verificar si el agente ya se registró hoy
+        asistencia_existente = (
+            Asistencias.query
+            .filter(Asistencias.id_agente == dni_agente, Asistencias.fecha == fecha_actual)
+            .first()
+        )
+
+        if asistencia_existente:
+            flash('El agente ya se registró hoy. No puede registrar múltiples veces en el mismo día.')
+            return redirect(url_for("index"))
+
+        almuerza = request.form['almuerza']
+        cena = request.form['cena']
+
+        asistencia = Asistencias(
+            Id_agente=dni_agente,
+            fecha=fecha_actual,
+            hora=hora_actual_str,
+            almuerza=almuerza,
+            cena=cena
+        )
+        db.session.add(asistencia)
+        db.session.commit()
+        flash('Asistencia cargada exitosamente')
+
+        return redirect(url_for("index"))
+
+    # Esto se ejecuta si la solicitud es GET
+    asistencias_del_dia = Asistencias.query.filter(Asistencias.fecha == fecha_actual).all()
+    todos_los_agentes = Agentes.query.order_by(Agentes.id_agente).all()
+
+    return render_template("asistencias.html", asistencias=asistencias_del_dia, agentee=todos_los_agentes)
+
+
+
+
+
+
+
+#----------------------------------------------
 
 @app.route('/movimientos')
 def movimientos():
@@ -364,13 +393,92 @@ def movimientos():
     return render_template("movimientos.html", moviles=movimientos)
 
 
+#----------------------------------------------
+
+
+@app.route('/registrar_parte', methods=['GET', 'POST'])
+def registrar_parte():
+    if request.method == 'POST':
+        num_movil = request.form['num-movil']
+        ag_responsable = request.form['ag_responsable']
+        dotacion = request.form['dotacion']
+        fecha_arribo = datetime.strptime(request.form['fecha_arribo'], '%Y-%m-%d')
+        hora_arribo = datetime.strptime(request.form['hora_arribo'], '%H:%M').time()
+        fecha_finalizacion = datetime.strptime(request.form['fecha_finalizacion'], '%Y-%m-%d')
+        hora_finalizacion = datetime.strptime(request.form['hora_finalizacion'], '%H:%M').time()
+        tipo_intervencion = request.form['tipo_intervencion']
+        calle_altura = request.form['calle_altura']
+        comuna_municipio = request.form['comuna_municipio']
+        acceso_lugar = request.form['acceso_lugar']
+        sup_afectada = request.form['sup_afectada']
+        material_combustible = request.form['material_combustible']
+        viviendas = request.form['viviendas']
+        vehiculos = request.form['vehiculos']
+        personal_salud = request.form['personal_salud']
+        personal_policial = request.form['personal_policial']
+        personal_bomberos = request.form['personal_bomberos']
+        defensa_civil = request.form['defensa_civil']
+        otro_equipo = request.form['otro_equipo']
+        personal_lesionado = request.form['personal_lesionado']
+        resumen = request.form['resumen']
+
+        intervencion = Parte_inter(
+            num_movil=num_movil,
+            ag_responsable=ag_responsable.upper(),
+            dotacion=dotacion.upper(),
+            fecha_arribo=fecha_arribo,
+            hora_arribo=hora_arribo,
+            fecha_finalizacion=fecha_finalizacion,
+            hora_finalizacion=hora_finalizacion,
+            tipo_intervencion=tipo_intervencion,
+            calle_altura=calle_altura,
+            comuna_municipio=comuna_municipio,
+            acceso_lugar=acceso_lugar,
+            sup_afectada=sup_afectada,
+            material_combustible=material_combustible,
+            viviendas=viviendas,
+            vehiculos=vehiculos,
+            personal_salud=personal_salud,
+            personal_policial=personal_policial,
+            personal_bomberos=personal_bomberos,
+            defensa_civil=defensa_civil,
+            otro_equipo=otro_equipo,
+            personal_lesionado=personal_lesionado,
+            resumen=resumen
+        )
+
+        db.session.add(intervencion)
+        db.session.commit()
+
+    return render_template("registrar_parte.html")
+
+#----------------------------------------------
+
+
+@app.route('/partes', methods=['GET', 'POST'])
+def partes():
+    registros = Parte_inter.query.all()
+    return render_template("partes.html", registros=registros)
+
+#----------------------------------------------
 
 
 
-@app.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for('index'))
+@app.route('/salidas', methods=['GET', 'POST'])
+def salidas():
+    if request.method == 'POST':
+        id_filtro = request.form['id_filtro']
+        if id_filtro:
+            salidas = Salida.query.filter_by(id=id_filtro).order_by(Salida.id.desc()).all()
+        else:
+            salidas = Salida.query.order_by(Salida.id.desc()).all()
+    else:
+        salidas = Salida.query.order_by(Salida.id.desc()).all()
+    return render_template('salidas.html', salidas=salidas)
+
+
+#----------------------------------------------
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -397,6 +505,9 @@ def login():
     return render_template("login.html")
 
 
+#----------------------------------------------
+
+
 @app.route('/register', methods=["GET", "POST"])
 @login_required
 def register():
@@ -415,6 +526,9 @@ def register():
 
         return redirect(url_for("secrets"))
     return render_template("register.html")
+
+
+#----------------------------------------------
 
 
 @app.route('/secrets', methods=["GET", "POST"])
@@ -524,6 +638,9 @@ def secrets():
     return render_template("secrets.html", name=current_user, last_three_users=ultimos3_usuarios)
 
 
+#----------------------------------------------
+
+
 @app.route('/guardiaA', methods=["GET", "POST"])
 @login_required
 def guardiaA():
@@ -545,6 +662,9 @@ def tallesA():
     agentesA = Agentes.query.filter(Agentes.guardia == 'A').order_by(Agentes.id_agente).all()
     provistosA = Talles.query.order_by(Talles.id_agente).all()
     return render_template("provistosa.html", lista_agentes=agentesA, provistos=provistosA)
+
+
+#----------------------------------------------
 
 
 @app.route('/guardiaB', methods=["GET", "POST"])
@@ -570,6 +690,10 @@ def tallesB():
     return render_template("provistosb.html", lista_agentes=agentesB, provistos=provistosB)
 
 
+
+#----------------------------------------------
+
+
 @app.route('/guardiaC', methods=["GET", "POST"])
 @login_required
 def guardiaC():
@@ -591,6 +715,9 @@ def tallesC():
     agentesC = Agentes.query.filter(Agentes.guardia == 'C').order_by(Agentes.id_agente).all()
     provistosC = Talles.query.order_by(Talles.id_agente).all()
     return render_template("provistosc.html", lista_agentes=agentesC, provistos=provistosC)
+
+
+#----------------------------------------------
 
 
 @app.route('/editar_licencia/<int:id_agente>', methods=['GET', 'POST'])
@@ -617,9 +744,29 @@ def editar_licencia(id_agente):
     return render_template('editar_licencia.html', licencia=licencia)
 
 
+#----------------------------------------------
+
 @app.route('/moviles')
 def moviles():
     return render_template("moviles.html")
+
+
+#----------------------------------------------
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
+#----------------------------------------------
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':
