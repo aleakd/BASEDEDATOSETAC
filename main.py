@@ -94,6 +94,33 @@ with app.app_context():
         Campera = db.Column(db.String(10))
 
 
+with app.app_context():
+    class Provistos(db.Model):
+        __tablename__ = 'Provistos'
+        id_agente = db.Column(db.Integer, primary_key=True)
+        borcegos = db.Column(db.Integer)
+        remera = db.Column(db.Integer)
+        pantalon_fajina = db.Column(db.Integer)
+        campera_celeste = db.Column(db.Integer)
+        campera_roja = db.Column(db.Integer)
+        buzo_celeste = db.Column(db.Integer)
+        gorra = db.Column(db.Integer)
+        pantalon_forestal = db.Column(db.Integer)
+        camisa_forestal = db.Column(db.Integer)
+        remera_primerapiel = db.Column(db.Integer)
+        guantes = db.Column(db.Integer)
+        casco = db.Column(db.Integer)
+        monja = db.Column(db.Integer)
+        antiparras = db.Column(db.Integer)
+        linterna = db.Column(db.Integer)
+        mochila_nawan = db.Column(db.Integer)
+        bomba_espalda = db.Column(db.Integer)
+
+
+
+
+
+
 
 
 with app.app_context():
@@ -633,6 +660,33 @@ def secrets():
             db.session.commit()
             flash("Se registro el cambio de guardia ")
 
+        if "equipamiento" in request.form:
+            nuevo_equipamiento = Provistos(
+                id_agente=request.form.get("id_agente"),
+                borcegos=request.form.get("borcegos"),
+                remera=request.form.get("remera_gris"),
+                pantalon_fajina=request.form.get("pantalon_fajina"),
+                campera_celeste=request.form.get("campera_celeste"),
+                campera_roja=request.form.get("campera_roja"),
+                buzo_celeste=request.form.get("buzo_celeste"),
+                gorra=request.form.get("gorra"),
+                pantalon_forestal=request.form.get("pantalon_forestal"),
+                camisa_forestal=request.form.get("camisa_forestal"),
+                remera_primerapiel=request.form.get("remera_primerpiel"),
+                guantes=request.form.get("guantes"),
+                casco=request.form.get("casco"),
+                monja=request.form.get("monja"),
+                antiparras=request.form.get("antiparras"),
+                linterna=request.form.get("linterna"),
+                mochila_nawan=request.form.get("mochila_nawan"),
+                bomba_espalda=request.form.get("bomba_espalda")
+
+            )
+
+            db.session.add(nuevo_equipamiento)
+            db.session.commit()
+            flash("Se registró correctamente el equipamiento")
+
     ultimos3_usuarios = User.query.order_by(User.id.desc()).all()
     print(current_user.name)
     return render_template("secrets.html", name=current_user, last_three_users=ultimos3_usuarios)
@@ -661,7 +715,8 @@ def licenciasA():
 def tallesA():
     agentesA = Agentes.query.filter(Agentes.guardia == 'A').order_by(Agentes.id_agente).all()
     provistosA = Talles.query.order_by(Talles.id_agente).all()
-    return render_template("provistosa.html", lista_agentes=agentesA, provistos=provistosA)
+    equipamiento = Provistos.query.order_by(Provistos.id_agente).all()
+    return render_template("provistosa.html", lista_agentes=agentesA, provistos=provistosA, equipa=equipamiento)
 
 
 #----------------------------------------------
@@ -687,7 +742,8 @@ def licenciasB():
 def tallesB():
     agentesB = Agentes.query.filter(Agentes.guardia == 'B').order_by(Agentes.id_agente).all()
     provistosB = Talles.query.order_by(Talles.id_agente).all()
-    return render_template("provistosb.html", lista_agentes=agentesB, provistos=provistosB)
+    equipamiento = Provistos.query.order_by(Provistos.id_agente).all()
+    return render_template("provistosb.html", lista_agentes=agentesB, provistos=provistosB, equipa=equipamiento)
 
 
 
@@ -714,7 +770,8 @@ def licenciasC():
 def tallesC():
     agentesC = Agentes.query.filter(Agentes.guardia == 'C').order_by(Agentes.id_agente).all()
     provistosC = Talles.query.order_by(Talles.id_agente).all()
-    return render_template("provistosc.html", lista_agentes=agentesC, provistos=provistosC)
+    equipamiento = Provistos.query.order_by(Provistos.id_agente).all()
+    return render_template("provistosc.html", lista_agentes=agentesC, provistos=provistosC, equipa=equipamiento)
 
 
 #----------------------------------------------

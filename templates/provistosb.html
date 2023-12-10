@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<h1>Provistos guardia "B"</h1>
+<h1>Talles guardia "B"</h1>
 {% if lista_agentes %}
     <table class="tabla_agentes" id="tablacarnet2" >
         <thead>
@@ -55,6 +55,88 @@
 <script>
 $(document).ready( function () {
     $('#tablacarnet2').DataTable();
+} );
+</script>
+
+
+<div class="indumetaria">
+<h1>Equipamiento guardia "B"</h1>
+
+    {% if lista_agentes %}
+    <table class="tabla_agentes" id="tablacarnet89" >
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Apellido</th>
+            <th>Nombre</th>
+
+            <th>Borcegos</th>
+            <th>Remera Gris</th>
+            <th>Pantalon Fajina</th>
+            <th>Campera Celeste</th>
+            <th>Campera Roja</th>
+            <th>Buzo Celeste</th>
+            <th>Gorra</th>
+            <th>Pantalon Forestal</th>
+            <th>Camisa Forestal</th>
+            <th>Remera PrimerPiel</th>
+            <th>Guantes</th>
+            <th>Casco</th>
+            <th>Monja</th>
+            <th>Antipparas</th>
+            <th>Linterna</th>
+            <th>Mochila Nawan</th>
+            <th>Bomba Espalda</th>
+
+
+           </tr>
+        </thead>
+
+      <tbody>
+        {% for agente in lista_agentes %}
+        {% for equip in equipa %}
+        {% if equip.id_agente == agente.id_agente %}
+
+
+        <tr>
+            <td>{{ agente.id_agente }}</td>
+            <td>{{ agente.apellido }}</td>
+            <td>{{ agente.nombre }}</td>
+            <td>{{ equip.borcegos }}</td>
+            <td>{{ equip.remera }}</td>
+            <td>{{ equip.pantalon_fajina }}</td>
+            <td>{{ equip.campera_celeste }}</td>
+            <td>{{ equip.campera_roja }}</td>
+            <td>{{ equip.buzo_celeste }}</td>
+            <td>{{ equip.gorra }}</td>
+            <td>{{ equip.pantalon_forestal }}</td>
+            <td>{{ equip.camisa_forestal }}</td>
+            <td>{{ equip.remera_primerapiel }}</td>
+            <td>{{ equip.guantes }}</td>
+            <td>{{ equip.casco }}</td>
+            <td>{{ equip.monja }}</td>
+            <td>{{ equip.antiparras }}</td>
+            <td>{{ equip.linterna }}</td>
+            <td>{{ equip.mochila_nawan }}</td>
+            <td>{{ equip.bomba_espalda }}</td>
+
+        </tr>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+<p>No hay equipamiento registrados.</p>
+{% endif %}
+
+
+
+</div>
+
+<script>
+$(document).ready( function () {
+    $('#tablacarnet89').DataTable();
 } );
 </script>
 
