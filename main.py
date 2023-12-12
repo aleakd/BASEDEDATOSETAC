@@ -151,6 +151,22 @@ with app.app_context():
         novedades = db.Column(db.String(100))
 
 
+with app.app_context():
+    class Comisiones(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        fecha = db.Column(db.Date)
+        hora = db.Column(db.String(100))
+        nmovil = db.Column(db.Integer)
+        ag_cargo = db.Column(db.String(100))
+        ag_chofer = db.Column(db.String(100))
+        dotacion = db.Column(db.String(100))
+        destino = db.Column(db.String(100))
+        odometro = db.Column(db.Integer)
+        novedades = db.Column(db.String(300))
+
+
+    db.create_all()
+
 
 
 
@@ -349,6 +365,34 @@ def index():
             db.session.commit()
             flash("Parte de salida registrado correctamente")
 
+        if 'salida_comision' in request.form:
+            fecha_actual = datetime.now().date()
+            nmovil = request.form.get('nmovil')
+            ag_cargo = request.form.get('ag_cargo').upper()
+            ag_chofer = request.form.get('ag_chofer')
+            dotacion = request.form.get('dotacion')
+            destino = request.form.get('destino')
+            odometro = request.form.get('odometro')
+            novedades = request.form.get('novedades')
+            hora_actual_utc = datetime.now(timezone('UTC'))
+            hora_actual_buenos_aires = hora_actual_utc.astimezone(app.config['TIMEZONE'])
+
+
+            comision = Comisiones(
+                fecha = fecha_actual,
+                hora = hora_actual_buenos_aires.strftime('%H:%M'),
+                nmovil= nmovil,
+                ag_cargo = ag_cargo,
+                ag_chofer = ag_chofer,
+                dotacion = dotacion,
+                destino = destino,
+                odometro = odometro,
+                novedades = novedades
+            )
+            db.session.add(comision)
+            db.session.commit()
+            flash("Parte de salida registrado correctamente")
+
 
     return render_template("index.html", moviles=movimientos, ultimos=resultados_consulta)
 
@@ -495,13 +539,10 @@ def partes():
 def salidas():
     if request.method == 'POST':
         id_filtro = request.form['id_filtro']
-        if id_filtro:
-            salidas = Salida.query.filter_by(id=id_filtro).order_by(Salida.id.desc()).all()
-        else:
-            salidas = Salida.query.order_by(Salida.id.desc()).all()
     else:
         salidas = Salida.query.order_by(Salida.id.desc()).all()
-    return render_template('salidas.html', salidas=salidas)
+        comision= Comisiones.query.order_by(Comisiones.id.desc()).all()
+    return render_template('salidas.html', salidas=salidas, comisiones=comision)
 
 
 #----------------------------------------------
@@ -672,7 +713,7 @@ def secrets():
                 gorra=request.form.get("gorra"),
                 pantalon_forestal=request.form.get("pantalon_forestal"),
                 camisa_forestal=request.form.get("camisa_forestal"),
-                remera_primerapiel=request.form.get("remera_primerpiel"),
+                remera_primerapiel=request.form.get("remera_primerapiel"),
                 guantes=request.form.get("guantes"),
                 casco=request.form.get("casco"),
                 monja=request.form.get("monja"),

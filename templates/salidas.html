@@ -68,6 +68,48 @@
         </tbody>
     </table>
 
+<div class="comisiones">
+
+    <h1>Salida a Comisiones</h1>
+
+    <table class="tabla_agentes table table-responsive" id="tablacarnet66" >
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>fecha</th>
+            <th>hora</th>
+            <th>Número de Móvil</th>
+            <th>Agente a Cargo</th>
+            <th>Agente Chofer</th>
+            <th>Dotación</th>
+            <th>Destino</th>
+            <th>Odometro</th>
+            <th>Novedades</th>
+
+        </tr>
+        </thead>
+
+
+        <tbody>
+         {% for comi in comisiones %}
+            <tr>
+                <td>{{ comi.id }}</td>
+                <td>{{ comi.fecha }}</td>
+                <td>{{ comi.hora }}</td>
+                <td>{{ comi.nmovil }}</td>
+                <td>{{ comi.ag_cargo }}</td>
+                <td>{{ comi.ag_chofer }}</td>
+                <td>{{ comi.dotacion }}</td>
+                <td>{{ comi.destino }}</td>
+                <td>{{ comi.odometro }}</td>
+                <td>{{ comi.novedades }}</td>
+         </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+</div>
 
 <script>
 $(document).ready(function () {

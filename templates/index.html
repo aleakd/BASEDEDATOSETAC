@@ -37,6 +37,7 @@
   {% endif %}
   {% endwith %}
 
+
 <div class="row">
   <div class="col-lg-6 col-md-12 text-center">
     <h3 class="text-center titulo_form_index">REGISTRO DE MOVIMIENTOS</h3>
@@ -168,6 +169,44 @@
 
 </div>
 
+     <div class="row">
+    <div class="col-lg-6 col-md-12 text-center">
+        <h3 class="text-center titulo_form_index">COMISIONES VARIAS</h3>
+         <form class="form_ins" action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
+          <label style="color:white">PARTE DE SALIDA COMISIONES</label>
+
+             <select class="form-control" name="nmovil" placeholder="Numero de Movil" required="required">
+             <option value="" disable selected>Selecciona un número de móvil</option>
+            <option value="424">424</option>
+            <option value="426">426</option>
+            <option value="430">430</option>
+            <option value="432">432</option>
+            <option value="438">438</option>
+            <option value="443">443</option>
+            <option value="460">460</option>
+            <option value="461">461</option>
+            <option value="492">492</option>
+            <option value="493">493</option>
+            <option value="494">494</option>
+            <option value="C-02">C-02</option>
+            <option value="C-01">C-01</option>
+            <option value="Volcador">Volcador</option>
+
+          </select>
+
+          <input type="text" class="form-control" name="ag_cargo" placeholder="Agte. a cargo" />
+          <input type="text" class="form-control" name="ag_chofer" placeholder="Chofer" />
+          <input type="text" class="form-control" name="dotacion" placeholder="Dotacion" />
+          <input type="text" class="form-control" name="destino" placeholder="Zona" />
+          <input type="number" class="form-control" name="odometro" placeholder="ODOMETRO / KM" required="required" />
+          <input type="text" class="form-control" name="novedades" placeholder="Observaciones"  />
+
+          <button type="submit" name="salida_comision" class="btn btn-primary btn-lg">Salida a Comisión</button>
+
+
+
+    </div>
+     </div>
   </section>
 
 
