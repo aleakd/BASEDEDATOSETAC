@@ -269,12 +269,19 @@ def index():
     ).group_by(Movimientos_moviles.numero_movil).order_by(Movimientos_moviles.numero_movil).all()
 
     if request.method == 'POST':
+
         if 'registro_movil' in request.form:
             fecha = datetime.strptime(request.form['fecha'],
                                       '%Y-%m-%d').date()  # Convierte la cadena de fecha a objeto de fecha
             movil = request.form['movil']
             destino = request.form['destino_actividad']
-            km_salida = request.form['km_salida']
+
+
+            # Obtén el km_salida desde la última entrada en Salida para el nmovil dado
+            nmovil = request.form['movil']
+            ultima_salida = Salida.query.filter_by(nmovil=nmovil).order_by(Salida.id.desc()).first()
+            km_salida = ultima_salida.odometro if ultima_salida else None
+
             km_llegada = request.form['km_llegada']
             hora_llegada = datetime.strptime(request.form['hora_llegada'],
                                              '%H:%M').time()  # Convierte la cadena de hora a objeto de hora
@@ -294,10 +301,15 @@ def index():
                 novedades=novedades
             )
 
+
+
             db.session.add(nuevo_registro)
             db.session.commit()
             flash('Se registro correctamente el movimiento del movil')
+
+
         if 'parte_salida' in request.form:
+
             nmovil = request.form.get('nmovil')
             ag_cargo = request.form.get('ag_cargo').upper()
             ag_chofer = request.form.get('ag_chofer')
@@ -331,6 +343,7 @@ def index():
             fecha_actual = datetime.now().date()
             hora_actual_utc = datetime.now(timezone('UTC'))
             hora_actual_buenos_aires = hora_actual_utc.astimezone(app.config['TIMEZONE'])
+
 
             # Crea una nueva entrada en la base de datos
             nueva_salida = Salida(
@@ -377,6 +390,34 @@ def index():
             hora_actual_utc = datetime.now(timezone('UTC'))
             hora_actual_buenos_aires = hora_actual_utc.astimezone(app.config['TIMEZONE'])
 
+            nueva_salida = Salida(
+                fecha=fecha_actual,
+                nmovil=nmovil,
+                ag_cargo=ag_cargo,
+                ag_chofer=ag_chofer,
+                dotacion=dotacion,
+                zona=destino,
+                handys=0,
+                gorgi=0,
+                pulasky=0,
+                pala=0,
+                mclood=0,
+                derqui=0,
+                bidon_nafta=0,
+                bolsa_rescate=0,
+                torpedo=0,
+                tabla=0,
+                conos=0,
+                sopladora=0,
+                cajon=0,
+                chaleco=0,
+                odometro=odometro,
+                bolsos_trauma=0,
+                herramienta_adicional=novedades,
+                hora=hora_actual_buenos_aires.strftime('%H:%M')
+
+            )
+
 
             comision = Comisiones(
                 fecha = fecha_actual,
@@ -389,7 +430,7 @@ def index():
                 odometro = odometro,
                 novedades = novedades
             )
-            db.session.add(comision)
+            db.session.add(nueva_salida)
             db.session.commit()
             flash("Parte de salida registrado correctamente")
 
@@ -419,7 +460,7 @@ def asistencias():
         # Verificar si el agente ya se registró hoy
         asistencia_existente = (
             Asistencias.query
-            .filter(Asistencias.id_agente == dni_agente, Asistencias.fecha == fecha_actual)
+            .filter(Asistencias.Id_agente == dni_agente, Asistencias.fecha == fecha_actual)
             .first()
         )
 
@@ -429,6 +470,8 @@ def asistencias():
 
         almuerza = request.form['almuerza']
         cena = request.form['cena']
+
+
 
         asistencia = Asistencias(
             Id_agente=dni_agente,
@@ -441,13 +484,16 @@ def asistencias():
         db.session.commit()
         flash('Asistencia cargada exitosamente')
 
+
         return redirect(url_for("index"))
 
     # Esto se ejecuta si la solicitud es GET
     asistencias_del_dia = Asistencias.query.filter(Asistencias.fecha == fecha_actual).all()
     todos_los_agentes = Agentes.query.order_by(Agentes.id_agente).all()
+    almuerza_si_count = Asistencias.query.filter(Asistencias.almuerza == 'SI', Asistencias.fecha == fecha_actual).count()
+    cena_si_count = Asistencias.query.filter(Asistencias.cena == 'SI', Asistencias.fecha == fecha_actual).count()
 
-    return render_template("asistencias.html", asistencias=asistencias_del_dia, agentee=todos_los_agentes)
+    return render_template("asistencias.html", asistencias=asistencias_del_dia, agentee=todos_los_agentes, almuerza_si_count=almuerza_si_count, cena_si_count=cena_si_count)
 
 
 
