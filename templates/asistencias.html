@@ -92,6 +92,73 @@
 
 
 
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4>Lista de Cambios de Guardia:</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Fecha de Ausencia</th>
+                    <th>Agente Ausente</th>
+                    <th>Guardia</th>
+                    <th>Agente que Cubre</th>
+                    <th>Guardia</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for cambio in cambioguar %}
+                    <tr>
+                        <td>{{ cambio.fecha_de_ausencia }}</td>
+                        <td>
+                            {% for agente in agentee %}
+                                {% if cambio.id_agente == agente.id_agente %}
+                                    {{ agente.apellido }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+
+                        <td>
+                            {% for agente in agentee %}
+                                {% if cambio.id_agente == agente.id_agente %}
+                                    {{ agente.guardia }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+
+
+                        <td>
+                            {% for agente in agentee %}
+                                {% if cambio.Id_agente_cubre == agente.id_agente %}
+                                    {{ agente.apellido }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% for agente in agentee %}
+                                {% if cambio.Id_agente_cubre == agente.id_agente %}
+                                    {{ agente.guardia }}
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+
+
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+
+
+
+
+
 <script>
 $(document).ready( function () {
     $('#tablacarnet5').DataTable();

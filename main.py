@@ -126,7 +126,8 @@ with app.app_context():
 with app.app_context():
     class Cambiosguardia(db.Model):
         __tablename__ = 'Cambiosguardia'  # Agrega esta línea para especificar el nombre de la tabla en la base de datos
-        id_agente = db.Column(db.Integer, primary_key=True)
+        id_cambio = db.Column(db.Integer, primary_key=True)
+        id_agente = db.Column(db.Integer)
         fecha_de_ausencia = db.Column(db.Date)
         Id_agente_cubre = db.Column(db.Integer)
         fecha_devolucion = db.Column(db.Date)
@@ -493,7 +494,11 @@ def asistencias():
     almuerza_si_count = Asistencias.query.filter(Asistencias.almuerza == 'SI', Asistencias.fecha == fecha_actual).count()
     cena_si_count = Asistencias.query.filter(Asistencias.cena == 'SI', Asistencias.fecha == fecha_actual).count()
 
-    return render_template("asistencias.html", asistencias=asistencias_del_dia, agentee=todos_los_agentes, almuerza_si_count=almuerza_si_count, cena_si_count=cena_si_count)
+    cambioguardia = Cambiosguardia.query.filter((Cambiosguardia.fecha_de_ausencia >= fecha_actual) | (
+                Cambiosguardia.fecha_devolucion >= fecha_actual)).order_by(Cambiosguardia.id_cambio).all()
+
+    return render_template("asistencias.html", asistencias=asistencias_del_dia, agentee=todos_los_agentes, almuerza_si_count=almuerza_si_count, cena_si_count=cena_si_count,
+                           cambioguar=cambioguardia)
 
 
 
