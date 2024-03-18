@@ -29,6 +29,7 @@ with app.app_context():
         apellido = db.Column(db.String(100))
         nombre = db.Column(db.String(100))
         guardia = db.Column(db.String(10))
+        base = db.Column(db.String(15))
         dni = db.Column(db.Integer)
         telefono = db.Column(db.Integer)
         telefono_alternativo = db.Column(db.Integer)
@@ -494,8 +495,8 @@ def asistencias():
     almuerza_si_count = Asistencias.query.filter(Asistencias.almuerza == 'SI', Asistencias.fecha == fecha_actual).count()
     cena_si_count = Asistencias.query.filter(Asistencias.cena == 'SI', Asistencias.fecha == fecha_actual).count()
 
-    cambioguardia = Cambiosguardia.query.filter((Cambiosguardia.fecha_de_ausencia >= fecha_actual) | (
-                Cambiosguardia.fecha_devolucion >= fecha_actual)).order_by(Cambiosguardia.id_cambio).all()
+    cambioguardia = Cambiosguardia.query.filter((Cambiosguardia.fecha_de_ausencia == fecha_actual) | (
+                Cambiosguardia.fecha_devolucion == fecha_actual)).order_by(Cambiosguardia.id_cambio).all()
 
     return render_template("asistencias.html", asistencias=asistencias_del_dia, agentee=todos_los_agentes, almuerza_si_count=almuerza_si_count, cena_si_count=cena_si_count,
                            cambioguar=cambioguardia)
