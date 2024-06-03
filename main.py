@@ -868,6 +868,29 @@ def tallesC():
 
 
 #----------------------------------------------
+@app.route('/guardiaD', methods=["GET", "POST"])
+@login_required
+def guardiaD():
+    agentesD = Agentes.query.filter(Agentes.guardia == 'D').order_by(Agentes.id_agente).all()
+    return render_template("guardiaD.html", lista_agentes=agentesD)
+
+
+@app.route('/licencias_D', methods=["GET", "POST"])
+@login_required
+def licenciasD():
+    agentesD = Agentes.query.filter(Agentes.guardia == 'D').order_by(Agentes.id_agente).all()
+    licenciasD = CarnetConducir.query.order_by(CarnetConducir.id_agente).all()
+    return render_template("licenciasD.html", lista_agentes=agentesD, Licencias=licenciasD)
+
+
+@app.route('/talles_D', methods=["GET", "POST"])
+@login_required
+def tallesD():
+    agentesD = Agentes.query.filter(Agentes.guardia == 'D').order_by(Agentes.id_agente).all()
+    provistosD = Talles.query.order_by(Talles.id_agente).all()
+    equipamiento = Provistos.query.order_by(Provistos.id_agente).all()
+    return render_template("provistosD.html", lista_agentes=agentesD, provistos=provistosD, equipa=equipamiento)
+#----------------------------------------------
 
 
 @app.route('/editar_licencia/<int:id_agente>', methods=['GET', 'POST'])

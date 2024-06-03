@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<h1>Licencias guardia "Dd"</h1>
+{% if lista_agentes %}
+    <table class="tabla_agentes" id="tablacarnet256" >
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Apellido</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Fecha de Otorgamiento</th>
+            <th>Fecha de Vencimiento</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for agente in lista_agentes %}
+        {% for licencia in Licencias %}
+        {% if licencia.id_agente == agente.id_agente %}
+        <tr>
+            <td>{{ agente.id_agente }}</td>
+            <td>{{ agente.apellido }}</td>
+            <td>{{ agente.nombre }}</td>
+            <td>{{ licencia.Tipo }}</td>
+            <td>{{ licencia.fecha_otorg }}</td>
+            <td>{{ licencia.fecha_vencim }}</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+<p>No hay agentes registrados.</p>
+{% endif %}
+
+
+<div>
+
+    <ul>
+    {% for licencia in Licencias %}
+        <li>
+            <strong>Id Agente: {{ licencia.id_agente }}</strong>
+            Tipo: {{ licencia.Tipo }}
+            Fecha de Otorgamiento: {{ licencia.fecha_otorg }}
+            Fecha de Vencimiento: {{ licencia.fecha_vencim }}
+            <a href="{{ url_for('editar_licencia', id_agente=licencia.id_agente) }}">Editar</a>
+        </li>
+    {% endfor %}
+</ul>
+</div>
+
+
+
+
+<script>
+$(document).ready( function () {
+    $('#tablacarnet256').DataTable();
+} );
+</script>
+
+
+
+
+{% endblock %}
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Listado de Agentes</h1>
+
+{% if lista_agentes %}
+    <table class="tabla_agentes table table-responsive" id="agentesTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Apellido</th>
+                <th>Nombre</th>
+                <th>Guardia</th>
+                <th>Base</th>
+                <th>DNI</th>
+
+                <th>Teléfono</th>
+                <th>Teléfono alternativo</th>
+                <th>Fecha de nacimineto</th>
+                <th>Localidad</th>
+                <th>Domicilio</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Grupo sanguineo</th>
+                <th>Alergia</th>
+                <th>Camada</th>
+                <th>Bombero?</th>
+                <!-- Agrega aquí otras columnas según tus campos -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for agente in lista_agentes %}
+                <tr>
+                    <td>{{ agente.id_agente }}</td>
+                    <td>{{ agente.apellido }}</td>
+                    <td>{{ agente.nombre }}</td>
+                    <td>{{ agente.guardia }}</td>
+                    <td>{{ agente.base }}</td>
+                    <td>{{ agente.dni }}</td>
+                    <td>{{ agente.telefono }}</td>
+                    <td>{{ agente.telefono_alternativo }}</td>
+                    <td>{{ agente.Fecha_nacimiento }}</td>
+                    <td>{{ agente.localidad }}</td>
+                    <td>{{ agente.domicilio }}</td>
+                    <td>{{ agente.email }}</td>
+                    <td>{{ agente.Rol }}</td>
+                    <td>{{ agente.Grupo_sanguineo }}</td>
+                    <td>{{ agente.Alergia }}</td>
+                    <td>{{ agente.Camada }}</td>
+                    <td>{{ agente.Bombero }}</td>
+
+                    <!-- Agrega aquí otras columnas según tus campos -->
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No hay agentes registrados.</p>
+    {% endif %}
+
+
+
+<script>
+$(document).ready( function () {
+    $('#agentesTable').DataTable();
+} );
+</script>
+
+{% endblock %}
+
+
+
