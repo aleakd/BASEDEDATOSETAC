@@ -110,10 +110,6 @@ div.dataTables_wrapper input[type="search"] {
 
 }
 
-
-
-
-
 /* Estilo de la tabla */
 table {
     width: 100%;
@@ -143,6 +139,7 @@ tr:nth-child(odd) {
 tr:hover {
     background-color: #e0e0e0;
 }
+
 .tabla_agentes th{
 background-color: #84E8EC;
     text-align: left;

@@ -5,6 +5,14 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from datetime import datetime
 import pytz
 from pytz import timezone
+import io
+from reportlab.lib.pagesizes import letter
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
+
+#-------------------------------------------------------------------------------
+
+
 
 app = Flask(__name__)
 app.config['TIMEZONE'] = pytz.timezone('America/Argentina/Buenos_Aires')
@@ -580,7 +588,7 @@ def registrar_parte():
 
 @app.route('/partes', methods=['GET', 'POST'])
 def partes():
-    registros = Parte_inter.query.all()
+    registros = Parte_inter.query.order_by(Parte_inter.id.desc()).all()
     return render_template("partes.html", registros=registros)
 
 #----------------------------------------------
@@ -934,13 +942,94 @@ def logout():
 
 #----------------------------------------------
 
+from flask import send_file
+
+#----------------------------------------------
+def obtener_registro_por_id(id):
+    return Parte_inter.query.get(id)
+#----------------------------------------------
+def create_pdf(registro, filename):
+    doc = SimpleDocTemplate(filename, pagesize=letter)
+    elements = []
+    # Define styles
+    styles = getSampleStyleSheet()
+    style_normal = styles['Normal']
+    style_heading = ParagraphStyle(
+        'Heading1',
+        parent=styles['Heading1'],
+        fontSize=15,
+        spaceAfter=12
+    )
+    # Add title
+    title = Paragraph("Parte de Intervención - ETAC - Calamuchita 2024", style_heading)
+    elements.append(title)
+    # Prepare data for PDF
+    data = {
+        "Id": registro.id,
+        "Número de Móvil": registro.num_movil,
+        "Agente Responsable": registro.ag_responsable,
+        "Dotación": registro.dotacion,
+        "Fecha Arribo": registro.fecha_arribo,
+        "Hora Arribo": registro.hora_arribo,
+        "Fecha Finalización": registro.fecha_finalizacion,
+        "Hora Finalización": registro.hora_finalizacion,
+        "Tipo de Intervención": registro.tipo_intervencion,
+        "Calle y Altura": registro.calle_altura,
+        "Comuna/Municipio/Paraje": registro.comuna_municipio,
+        "Acceso al Lugar": registro.acceso_lugar,
+        "Superficie Afectada": registro.sup_afectada,
+        "Material Combustible": registro.material_combustible,
+        "Viviendas": registro.viviendas,
+        "Vehículos": registro.vehiculos,
+        "Personal de Salud": registro.personal_salud,
+        "Personal Policial": registro.personal_policial,
+        "Personal de Bomberos": registro.personal_bomberos,
+        "Defensa Civil": registro.defensa_civil,
+        "Otro Equipo": registro.otro_equipo,
+        "Personal Lesionado": registro.personal_lesionado,
+        "Resumen": registro.resumen
+    }
+    # Add data to PDF
+    for key, value in data.items():
+        line = f"<b>{key}:</b> {value}"
+        p = Paragraph(line, style_normal)
+        elements.append(p)
+    # Add space before the signature section
+    elements.append(Spacer(1, 20))  # Ajusta el espacio vertical si es necesario
+
+    # Add signature section
+    signature_lines = """
+    <br/><br/>
+    FIRMA: __________________________<br/><br/>
+    ACLARACIÓN: __________________________<br/><br/>
+    DNI: __________________________
+    """
+    signature_section = Paragraph(signature_lines, style_normal)
+    elements.append(signature_section)
 
 
 
 
+    # Build PDF
+    doc.build(elements)
 
 
+#----------------------------------------------
 
+@app.route('/generar_pdf/<int:id>', methods=['GET'])
+@login_required
+def generar_pdf(id):
+    registro = obtener_registro_por_id(id)
+    if not registro:
+        abort(404)  # Si el registro no se encuentra, devuelve un error 404
 
+    buffer = io.BytesIO()
+    create_pdf(registro, buffer)
+    buffer.seek(0)
+
+    return send_file(buffer, as_attachment=True, download_name=f'parte_intervencion_{id}.pdf',
+                     mimetype='application/pdf')
+
+#----------------------------------------------
 if __name__ == '__main__':
     app.run(debug=True, port=8080)  # Cambia 8080 al puerto que prefieras

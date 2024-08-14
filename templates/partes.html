@@ -60,6 +60,11 @@
                         <td>{{ registro.otro_equipo }}</td>
                         <td>{{ registro.personal_lesionado }}</td>
                         <td>{{ registro.resumen }}</td>
+                        <td>
+                <a href="{{ url_for('generar_pdf', id=registro.id) }}" class="btn btn-secondary">Generar PDF</a>
+
+            </td>
+
                     </tr>
                 {% endfor %}
             </tbody>
