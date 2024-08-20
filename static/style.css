@@ -3,17 +3,30 @@ background: #1c92d2;  /* fallback for old browsers */
 background: -webkit-linear-gradient(to right, #f2fcfe, #1c92d2);  /* Chrome 10-25, Safari 5.1-6 */
 background: linear-gradient(to right, #f2fcfe, #1c92d2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 text-align:center;
-font-family:"Roboto";
+font-family:"Helvetica";
 }
 
 
 /* Establece la imagen como fondo de pantalla solo en el cuerpo de index.html */
 body#index-body {
-  background-image: url("../static/img/baseag.jpg");
+  background-image: url("../static/img/pajaro.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  background-position:top;
+  }
+
+.portada_asistencia {
+    background-image: url("../static/img/cala.jpg");
+    background-size: cover; /* Asegura que la imagen cubra todo el contenedor */
+    background-attachment: fixed; /* Fija la imagen de fondo en su lugar */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    height: 100vh; /* Ajusta la altura al 100% de la ventana */
+    width: 100%; /* Asegura que la imagen ocupe todo el ancho */
+    margin-bottom:15px;
 }
+
 
 #div_parte {
   background-image: url("../static/img/foto1.jpg");
@@ -33,16 +46,18 @@ font-family:"Merriweather";
 }
 
 .titulo_index{
-font-family:"Roboto Slab";
+font-family:"Helvetic";
 font-size:70px;
+margin: 10px 50px;
 padding:50px;
 color: #FCFAFA;
-background-color:#3f80d58f;
- border-radius: 20%;
+text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+background-color:hwb(31 20% 9% / 0.46);
+border-radius: 20%;
 }
 .subtitulo_index{
 color: #FCFAFA;
-background-color:#3f80d58f;
+background-color:hwb(31 20% 9% / 0.46);
 
 
 }
@@ -90,8 +105,7 @@ input[type=text], input[type=email], textarea {
 
 /* Estilos para el botón del formulario */
 button[type=submit] {
- background: rgb(8,223,211);
-background: linear-gradient(0deg, rgba(8,223,211,1) 0%, rgba(0,241,29,1) 100%);
+ background:#f8630e;
   color: black;
   padding: 20px 20px;
   border: none;
@@ -248,3 +262,7 @@ background-color:black;
 .indumetaria{
 padding-top:300px;
 }
+
+#grafico_moviles{
+background-color:#f2f8f9;
+margin:80px;}

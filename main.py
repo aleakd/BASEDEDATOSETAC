@@ -479,7 +479,7 @@ def asistencias():
             return redirect(url_for("index"))
 
         almuerza = request.form['almuerza']
-        cena = request.form['cena']
+
 
 
 
@@ -488,7 +488,7 @@ def asistencias():
             fecha=fecha_actual,
             hora=hora_actual_str,
             almuerza=almuerza,
-            cena=cena
+
         )
         db.session.add(asistencia)
         db.session.commit()

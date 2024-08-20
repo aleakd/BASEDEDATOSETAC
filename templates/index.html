@@ -169,8 +169,8 @@
 
 </div>
 
-     <div class="row">
-    <div class="col-lg-6 col-md-12 text-center">
+    <div class="row">
+        <div class="col-lg-6 col-md-12 text-center">
         <h3 class="text-center titulo_form_index">COMISIONES VARIAS</h3>
          <form class="form_ins" action="{{ url_for('index') }}" method="post" enctype="multipart/form-data">
           <label style="color:white">PARTE DE SALIDA COMISIONES</label>
@@ -204,10 +204,11 @@
           <button type="submit" name="salida_comision" class="btn btn-primary btn-lg">Salida a Comisión</button>
 
 
-
+        </div>
     </div>
-     </div>
+ </div>
   </section>
+
 
 
 
@@ -246,6 +247,49 @@
 </section>
 
 
+<div id="grafico_moviles">
+<div class="row">
+  <div class="col-lg-12 col-md-12 text-center">
+    <h3 class="text-center titulo_form_index">Kilómetros por Móvil</h3>
+    <canvas id="movilesChart" width="400" height="200"></canvas>
+  </div>
+</div>
+    </div>
+
+<script>
+  var ctx = document.getElementById('movilesChart').getContext('2d');
+  var movilesChart = new Chart(ctx, {
+    type: 'bar', // Cambia a 'pie' para gráfico de torta
+    data: {
+      labels: [
+        {% for item in ultimos %}
+          "{{ item.numero_movil }}",
+        {% endfor %}
+      ],
+      datasets: [{
+        label: 'Kilómetros de Llegada',
+        data: [
+          {% for item in ultimos %}
+            {{ item.km_llegada }},
+          {% endfor %}
+        ],
+        backgroundColor: '#f09b5e',
+        borderColor: 'rgba(54, 162, 235, 1)',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+
+
 <script>
         setInterval(function() {
             var h2 = document.getElementById('miH202');
@@ -253,5 +297,5 @@
         }, 1000);
 </script>
 
-
+</body>
 {% endblock %}

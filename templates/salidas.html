@@ -15,8 +15,23 @@
             <th>Agente Chofer</th>
             <th>Dotación</th>
             <th>Zona</th>
-            <!-- Añadir más columnas según sea necesario -->
+            <th>Handys</th>
+            <th>Gorgi</th>
+            <th>Pulasky</th>
+            <th>Pala</th>
+            <th>Mclood</th>
+            <th>Derqui</th>
+            <th>Bidón de Nafta</th>
+            <th>Bolsa de Rescate</th>
+            <th>Torpedo</th>
+            <th>Tabla</th>
+            <th>Conos</th>
+            <th>Sopladora</th>
+            <th>Cajón</th>
+            <th>Chaleco</th>
             <th>Odómetro</th>
+            <th>Bolsos de Trauma</th>
+            <th>Mat. adicional</th>
             <th>Acciones</th> <!-- Nueva columna para el botón -->
         </tr>
     </thead>
@@ -24,15 +39,30 @@
         {% for salida in salidas %}
         <tr>
             <td>{{ salida.id }}</td>
-            <td>{{ salida.fecha }}</td>
-            <td>{{ salida.hora }}</td>
-            <td>{{ salida.nmovil }}</td>
-            <td>{{ salida.ag_cargo }}</td>
-            <td>{{ salida.ag_chofer }}</td>
-            <td>{{ salida.dotacion }}</td>
-            <td>{{ salida.zona }}</td>
-            <!-- Añadir más columnas según sea necesario -->
-            <td>{{ salida.odometro }}</td>
+                <td>{{ salida.fecha }}</td>
+                <td>{{ salida.hora }}</td>
+                <td>{{ salida.nmovil }}</td>
+                <td>{{ salida.ag_cargo }}</td>
+                <td>{{ salida.ag_chofer }}</td>
+                <td>{{ salida.dotacion }}</td>
+                <td>{{ salida.zona }}</td>
+                <td>{{ salida.handys }}</td>
+                <td>{{ salida.gorgi }}</td>
+                <td>{{ salida.pulasky }}</td>
+                <td>{{ salida.pala }}</td>
+                <td>{{ salida.mclood }}</td>
+                <td>{{ salida.derqui }}</td>
+                <td>{{ salida.bidon_nafta }}</td>
+                <td>{{ salida.bolsa_rescate }}</td>
+                <td>{{ salida.torpedo }}</td>
+                <td>{{ salida.tabla }}</td>
+                <td>{{ salida.conos }}</td>
+                <td>{{ salida.sopladora }}</td>
+                <td>{{ salida.cajon }}</td>
+                <td>{{ salida.chaleco }}</td>
+                <td>{{ salida.odometro }}</td>
+                <td>{{ salida.bolsos_trauma }}</td>
+                <td>{{ salida.herramienta_adicional }}</td>
             <td>
                 <button class="btn btn-primary copiar-boton"
                         data-hora="{{ salida.hora }}"
